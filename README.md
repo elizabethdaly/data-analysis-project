@@ -1,15 +1,15 @@
-# data-analysis-project: The Tips Dataset 
+# data-analysis-project: The Tips Data Set 
 ## Elizabeth Daly
-### September-November 2019
+
 ### HDip Data Analytics 2019 Fundamentals of Data Analysis Assessment
 
 Git-hub repository at:
 https://github.com/elizabethdaly/data-analysis-project.git
 
-Jupyter notebook: file.ipynb
-Dataset: tips.csv
+- Jupyter notebook: tips-data-analysis.ipynb
+- Dataset: tips.csv
 
-<!-- ![Tips](.png) -->
+![Tips](images/tip.jpg)
 
 # Table of contents
 1. [Introduction](#introduction)
@@ -28,9 +28,10 @@ EDA approach.
 6. [References](#references)
 
 ## Introduction <a name="introduction"></a>
-This README describes work done on the Tips Dataset for the Fundamentals of Data Analysis module assessment due November 29 2019. Resources used include Python and associated packages Jupyter, matplotlib, and Seaborn. The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and run Jupyter notebook which comes as part of the Anaconda distribution of Python (as do the other packages listed above). The Tips dataset is incuded in the Seaborn visualization library and can be loaded provided one has access to the internet. For the sake of completeness, I downloaded the dataset from the site included in the project instructions and I include it in this repository as a csv file.
+This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, and Seaborn. The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and run Jupyter notebook, which comes as part of the Anaconda distribution of Python (as do the other packages listed above). Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. The Tips data set is incuded in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site included in the project instructions, and I include it in this repository as a csv file.
 
 ##  Description of the data set <a name="section1"></a>
+
 
 ##  Regression <a name="section2"></a>
 
@@ -41,19 +42,22 @@ This README describes work done on the Tips Dataset for the Fundamentals of Data
 ## Conclusion <a name="conclusion"></a>
 
 ## References <a name="references"></a>
-[1]  Anaconda Distribution
+- [1]  Anaconda Distribution
 https://www.anaconda.com/
-[2] Python Software Foundation
+- [2] Python Software Foundation
 https://www.python.org/
-[3] Project Jupyter
+- [3] Project Jupyter
 https://jupyter.org/
-[4] seaborn: statistical data visualization
+- [4] Sharing Jupyter notebooks
+https://nbviewer.jupyter.org/
+- [5] seaborn: statistical data visualization
 https://seaborn.pydata.org/index.html#
-[5] matplotlib: Python plotting library
+- [6] matplotlib: Python plotting library
 https://matplotlib.org/
-[6] The Tips dataset from Michael Waskom
+- [7] The Tips dataset from Michael Waskom
 https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
-[7]
-[8]
-[9]
-[10]
+- [8] How to investigate a data set with Python
+https://towardsdatascience.com/hitchhikers-guide-to-exploratory-data-analysis-6e8d896d3f7e
+- [9]
+- [10]
+- [11]
