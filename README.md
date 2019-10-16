@@ -27,7 +27,7 @@ https://github.com/elizabethdaly/data-analysis-project.git
 6. [References](#references)
 
 ## Introduction <a name="introduction"></a>
-This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, and Seaborn. The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and run Jupyter notebook, which comes as part of the Anaconda distribution of Python (as do the other packages listed above). Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. The Tips data set is incuded in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file.
+This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, and Seaborn. The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and run Jupyter notebook, which comes as part of the Anaconda distribution of Python (as do the other packages listed above). Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. The Tips data set is incuded in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. I have also tried to break the Jupyter notebook into sections which roughly correspond to the sections of this README.
 
 ##  Description of the data set <a name="section1"></a>
 The Tips data set contains 244 rows of data relating to tips left in a restaurant. It includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
@@ -59,7 +59,9 @@ https://matplotlib.org/
 https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
 - [8] How to investigate a data set with Python
 https://towardsdatascience.com/hitchhikers-guide-to-exploratory-data-analysis-6e8d896d3f7e
-- [9] 
+- [9] Data analysis with Python
 https://medium.com/@onpillow/01-investigate-tmdb-movie-dataset-python-data-analysis-project-part-1-data-wrangling-3d2b55ea7714
-- [10]
-- [11]
+- [10] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
+Wes McKinney. ISBN-13: 978-1491957660 ISBN-10: 1491957662
+- [11] Pandas In 10 Minutes || Wes McKinney
+https://www.youtube.com/watch?v=1MGCD8SQp3k
