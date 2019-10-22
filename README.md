@@ -33,8 +33,11 @@ This README describes work done on the Tips data set for the Fundamentals of Dat
 The Tips data set contains 244 rows of data relating to tips left in a restaurant. It includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
 I often use sites such as Medium.com to see how other people have investigated data sets using Python.Two examples of such exploratory data analysis are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine.
 
+Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. 
+
 
 ##  Regression <a name="section2"></a>
+statsmodels and scikit-learn. Why one over other? ML predict classify?
 
 ## Relationships between variables <a name="section3"></a>
 
@@ -65,3 +68,11 @@ https://medium.com/@onpillow/01-investigate-tmdb-movie-dataset-python-data-analy
 Wes McKinney. ISBN-13: 978-1491957660 ISBN-10: 1491957662
 - [11] Pandas In 10 Minutes || Wes McKinney
 https://www.youtube.com/watch?v=1MGCD8SQp3k
+- [12] Ordinary Least Squares in statsmodels
+https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
+- [13] Generalized Linear Models in scikit-learn
+https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares
+- [14] How to run Linear regression in Python scikit-Learn
+https://bigdata-madesimple.com/how-to-run-linear-regression-in-python-scikit-learn/
+- [15] A beginner’s guide to Linear Regression in Python with Scikit-Learn
+https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f
