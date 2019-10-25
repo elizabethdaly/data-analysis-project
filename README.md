@@ -31,9 +31,9 @@ This README describes work done on the Tips data set for the Fundamentals of Dat
 
 ##  Description of the data set <a name="section1"></a>
 The Tips data set contains 244 rows of data relating to tips left in a restaurant. It includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
-I often use sites such as Medium.com to see how other people have investigated data sets using Python.Two examples of such exploratory data analysis are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine.
+I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. 
 
-Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. 
+Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. 
 
 
 ##  Regression <a name="section2"></a>
@@ -60,19 +60,23 @@ https://seaborn.pydata.org/index.html#
 https://matplotlib.org/
 - [7] The Tips dataset from Michael Waskom
 https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
-- [8] How to investigate a data set with Python
+- [8] Description of what is contained in the tips set
+https://www.kaggle.com/ranjeetjain3/seaborn-tips-dataset
+- [9] How to investigate a data set with Python
 https://towardsdatascience.com/hitchhikers-guide-to-exploratory-data-analysis-6e8d896d3f7e
-- [9] Data analysis with Python
+- [10] Data analysis with Python
 https://medium.com/@onpillow/01-investigate-tmdb-movie-dataset-python-data-analysis-project-part-1-data-wrangling-3d2b55ea7714
-- [10] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
+- [11] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
 Wes McKinney. ISBN-13: 978-1491957660 ISBN-10: 1491957662
-- [11] Pandas In 10 Minutes || Wes McKinney
+- [12] Pandas In 10 Minutes || Wes McKinney
 https://www.youtube.com/watch?v=1MGCD8SQp3k
-- [12] Ordinary Least Squares in statsmodels
+- [13] Good description of quartiles on Seaborn plots
+https://towardsdatascience.com/analyze-the-data-through-data-visualization-using-seaborn-255e1cd3948e
+- [14] Ordinary Least Squares in statsmodels
 https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
-- [13] Generalized Linear Models in scikit-learn
+- [15] Generalized Linear Models in scikit-learn
 https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares
-- [14] How to run Linear regression in Python scikit-Learn
+- [16] How to run Linear regression in Python scikit-Learn
 https://bigdata-madesimple.com/how-to-run-linear-regression-in-python-scikit-learn/
-- [15] A beginner’s guide to Linear Regression in Python with Scikit-Learn
+- [17] A beginner’s guide to Linear Regression in Python with Scikit-Learn
 https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f
