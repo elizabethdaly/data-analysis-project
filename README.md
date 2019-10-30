@@ -26,26 +26,28 @@ https://github.com/elizabethdaly/data-analysis-project.git
 
 6. [References](#references)
 
-## Introduction <a name="introduction"></a>
+## 1. Introduction <a name="introduction"></a>
 This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, and Seaborn. The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and run Jupyter notebook, which comes as part of the Anaconda distribution of Python (as do the other packages listed above). Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. The Tips data set is incuded in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. I have also tried to break the Jupyter notebook into sections which roughly correspond to the sections of this README.
 
-##  Description of the data set <a name="section1"></a>
+##  2. Description of the data set <a name="section1"></a>
 The Tips data set contains 244 rows of data relating to tips left in a restaurant. It includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
 I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. 
 
 Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. 
 
 
-##  Regression <a name="section2"></a>
-statsmodels and scikit-learn. Why one over other? ML predict classify?
+##  3. Regression <a name="section2"></a>
+For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear realtionships beween our two variables of interest using regplot. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the targets predicted by the linear approximation. Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I will do it once and then stick to scikit-learn which will be useful if we want to make any predictions using the dataset. $R^2$ is the coefficient of determination, a measure of how close the data points are to the regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of $R^2$ are better. However, as the minitab link in the references discusses, that's not the full story.
+Summary y=mx+c Rsquared. 
+. Why one over other? ML predict classify?
 
-## Relationships between variables <a name="section3"></a>
+## 4. Relationships between variables <a name="section3"></a>
 
-## Work done by other people on the Tips data set <a name="section4"></a>
+## 5. Work done by other people on the Tips data set <a name="section4"></a>
 
-## Conclusion <a name="conclusion"></a>
+## 6. Conclusion <a name="conclusion"></a>
 
-## References <a name="references"></a>
+## 7. References <a name="references"></a>
 - [1]  Anaconda Distribution
 https://www.anaconda.com/
 - [2] Python Software Foundation
@@ -80,3 +82,9 @@ https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares
 https://bigdata-madesimple.com/how-to-run-linear-regression-in-python-scikit-learn/
 - [17] A beginner’s guide to Linear Regression in Python with Scikit-Learn
 https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f
+- [18] Regression Analysis: How Do I Interpret R-squared and Assess the Goodness-of-Fit?
+https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit
+- [19] PYTHON MACHINE LEARNING EXAMPLE – LINEAR REGRESSION
+https://devarea.com/python-machine-learning-example-linear-regression/#.XbbfgOj7Q2w
+- [20] STAT 503 Case Study 1: Restaurant Tipping
+https://dicook.public.iastate.edu/stat503/05/cs-tips2.pdf
