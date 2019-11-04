@@ -39,19 +39,19 @@ Pandas **decribe()** can provide a quick summary of the data set as outlined in 
 ##  3. Regression <a name="section2"></a>
 For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear realationships beween our two variables of interest using Seaborn regplot. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the targets predicted by the linear approximation. Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I will do it once and then stick to scikit-learn which will be useful if we want to make any predictions using the dataset. In regression, $R^2$ is the coefficient of determination, a measure of how close the data points are to the regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of $R^2$ are better. However, as the minitab link in the references discusses, that's not the full story.
 
-| Fit           | R squared | slope | intercept |
-| :------------ |:---------:|: -----| ---------:|
-| All           | 0.457     | 0.105 | 0.920     |
-| size = 2      | 0.232     | 0.078 | 1.292     |
-| size = 2,3,4  | 0.438     | 0.105 | 0.920     |
-| F smokers     | 0.266     | 0.068 | 1.701     |
-| M smokers     | 0.232     | 0.073 | 1.425     |
-| F non-smokers | 0.686     | 0.128 | 0.452     |
-| M non-smokers | 0.670     | 0.014 | 0.348     |
-| Thur          | 0.660     | 0.128 | 0.512     |
-| Fri           | 0.597     | 0.095 | 1.109     |
-| Sat           | 0.495     | 0.121 | 0.519     |
-| Sun           | 0.251     | 0.070 | 1.753     |
+Fit         | R squared | slope | intercept
+------------|-----------|-------|----------
+All           | 0.457     | 0.105 | 0.920     |
+size = 2      | 0.232     | 0.078 | 1.292     |
+size = 2,3,4  | 0.438     | 0.105 | 0.920     |
+F smokers     | 0.266     | 0.068 | 1.701     |
+M smokers     | 0.232     | 0.073 | 1.425     |
+F non-smokers | 0.686     | 0.128 | 0.452     |
+M non-smokers | 0.670     | 0.014 | 0.348     |
+Thur          | 0.660     | 0.128 | 0.512     |
+Fri           | 0.597     | 0.095 | 1.109     |
+Sat           | 0.495     | 0.121 | 0.519     |
+Sun           | 0.251     | 0.070 | 1.753     |
 
 
 Summary y=mx+c Rsquared. 
