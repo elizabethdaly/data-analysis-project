@@ -6,8 +6,8 @@
 Git-hub repository at:
 https://github.com/elizabethdaly/data-analysis-project.git
 
-- Jupyter notebook: tips-data-analysis.ipynb
-- Dataset: tips.csv
+- Jupyter notebook: **tips-data-analysis.ipynb**
+- Dataset: data\tips.csv
 
 ![Tips](images/tip.jpg)
 
@@ -27,19 +27,32 @@ https://github.com/elizabethdaly/data-analysis-project.git
 6. [References](#references)
 
 ## 1. Introduction <a name="introduction"></a>
-This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, and Seaborn. The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and run Jupyter notebook, which comes as part of the Anaconda distribution of Python (as do the other packages listed above). Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. The Tips data set is incuded in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. I have also tried to break the Jupyter notebook into sections which roughly correspond to the sections of this README.
+- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, and Seaborn. 
+- The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook from the folder containing the file. Jupyter notebook comes as part of the Anaconda distribution of Python (as do the other packages listed above). 
+- Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. 
+- The Tips data set is incuded in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. It is located in the **data** subdirectory.
+- All images intended for inclusion in this README are located in the **images** subdirectory.
+- I have tried to structure the Jupyter notebook and this README so that they have corresponding sections. However, I do not wish to merely repeat here what has been stated in the notebook. I will endevour to have this README summarize the work of the notebook and, hopefully, complement the analyses done there.
 
 ##  2. Description of the data set <a name="section1"></a>
-The Tips data set contains 244 rows of data relating to tips left in a restaurant. I will assuming that the currency is $, as tipping is standard practice in the US. The data set includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
+The Tips data set contains 244 rows of data relating to tips left in a restaurant. I will assume that the currency is $, as tipping is standard practice in the US. The data set includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
+
 I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. 
 
-Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. 
+![head](images/head.jpg)
 
+Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference [] below, in Wes McKinney's book when he is using the Tips data set as an example, and in the Case Study 1: Restaurant Tipping report below. So it seems like a sensible step to take.
+
+![describeAll](images/describeAll.jpg)
 
 ##  3. Regression <a name="section2"></a>
-For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn regplot. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the targets predicted by the linear approximation. Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn, which will be useful if we want to make any predictions using the dataset. In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab [] link in the references discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips dataset falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit) may produce a better R<sup>2</sup> but wouldn't be a good way to model how tip amount varies with total bill. The results of regression on all of the data, and on subsets of it, are presented in the table below.
+For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn regplot. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
 
-Fit         | R<sup>2</sup> | slope | intercept
+We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit. Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn, which is useful for making predictions using the dataset. 
+
+In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab [] link in the references discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips dataset falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit) may produce a better R<sup>2</sup> but wouldn't be a good way to model how tip amount varies with total bill. The results of regression on all of the data, and on subsets of it, are presented in the table below.
+
+Line fit    | R<sup>2</sup> | slope | intercept
 ------------|---------------|-------|----------
 All           | 0.457     | 0.105 | 0.920     |
 size = 2      | 0.232     | 0.078 | 1.292     |
@@ -68,48 +81,96 @@ ML predict classify?
 ## 4. Relationships between variables <a name="section3"></a>
 
 ## 5. Work done by other people on the Tips data set <a name="section4"></a>
+The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below.
+I found an annonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report (indeed I don't know what application was used to perform the analysis), but I'm guessing a pure statistics package as there is mention of t-values and p-values. 
 Regression using all cat vars.
+Others..brief discussion here.
 
 ## 6. Conclusion <a name="conclusion"></a>
 
 ## 7. References <a name="references"></a>
 - [1]  Anaconda Distribution
 https://www.anaconda.com/
+
 - [2] Python Software Foundation
 https://www.python.org/
+
 - [3] Project Jupyter
 https://jupyter.org/
+
 - [4] Sharing Jupyter notebooks
 https://nbviewer.jupyter.org/
+
 - [5] seaborn: statistical data visualization
 https://seaborn.pydata.org/index.html#
+
 - [6] matplotlib: Python plotting library
 https://matplotlib.org/
+
 - [7] The Tips dataset from Michael Waskom
 https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
+
 - [8] Description of what is contained in the tips set
 https://www.kaggle.com/ranjeetjain3/seaborn-tips-dataset
+
+- [] Exploratory Statistical Data Analysis with a Real Dataset using Pandas
+https://towardsdatascience.com/exploratory-statistical-data-analysis-with-a-real-dataset-using-pandas-208007798b92
+
 - [9] How to investigate a data set with Python
 https://towardsdatascience.com/hitchhikers-guide-to-exploratory-data-analysis-6e8d896d3f7e
+
 - [10] Data analysis with Python
 https://medium.com/@onpillow/01-investigate-tmdb-movie-dataset-python-data-analysis-project-part-1-data-wrangling-3d2b55ea7714
+
 - [11] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
 Wes McKinney. ISBN-13: 978-1491957660 ISBN-10: 1491957662
+
 - [12] Pandas In 10 Minutes || Wes McKinney
 https://www.youtube.com/watch?v=1MGCD8SQp3k
+
 - [13] Good description of quartiles on Seaborn plots
 https://towardsdatascience.com/analyze-the-data-through-data-visualization-using-seaborn-255e1cd3948e
+
 - [14] Ordinary Least Squares in statsmodels
 https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
+
 - [15] Generalized Linear Models in scikit-learn
 https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares
+
 - [16] How to run Linear regression in Python scikit-Learn
 https://bigdata-madesimple.com/how-to-run-linear-regression-in-python-scikit-learn/
+
 - [17] A beginner’s guide to Linear Regression in Python with Scikit-Learn
 https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f
+
 - [18] Regression Analysis: How Do I Interpret R-squared and Assess the Goodness-of-Fit?
 https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit
-- [19] PYTHON MACHINE LEARNING EXAMPLE – LINEAR REGRESSION
+
+References directly relating to Tips:
+
+- [19] Tips data set in PYTHON MACHINE LEARNING EXAMPLE – LINEAR REGRESSION
 https://devarea.com/python-machine-learning-example-linear-regression/#.XbbfgOj7Q2w
-- [20] STAT 503 Case Study 1: Restaurant Tipping
+
+- [] Tips analysis using Seaborn: Visualizing statistical relationships
+https://seaborn.pydata.org/tutorial/relational.html#relational-tutorial
+
+- [] Tips analysis using Seaborn: Plotting with categorical data
+https://seaborn.pydata.org/tutorial/categorical.html#categorical-tutorial
+
+- [] Tips analysis using Seaborn: Visualizing linear relationships
+https://seaborn.pydata.org/tutorial/regression.html#regression-tutorial
+
+- [] Tips analysis using Seaborn: Building structured multi-plot grids
+https://seaborn.pydata.org/tutorial/axis_grids.html#grid-tutorial
+
+- [20] STAT 503 Case Study 1: Restaurant Tipping (Author unknown)
 https://dicook.public.iastate.edu/stat503/05/cs-tips2.pdf
+
+- [] Interactive analytics and predictions on Restaurant tips
+https://medium.com/@valentinaalto/interactive-analytics-and-predictions-on-restaurant-tips-94f21f537de8
+
+- [] Seaborn again: Python Data Visualisation using Seaborn 
+https://grindsquare.co.za/python-data-visualisation-using-seaborn/
+
+- [] Excerpt from the Python Data Science Handbook by Jake VanderPlas; Jupyter notebooks are available on GitHub.
+https://jakevdp.github.io/PythonDataScienceHandbook/04.14-visualization-with-seaborn.html
