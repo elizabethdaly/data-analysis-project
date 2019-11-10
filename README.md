@@ -1,7 +1,8 @@
-# data-analysis-project: The Tips Data Set 
+# The Tips Data Set 
 ## Elizabeth Daly
 
-### HDip Data Analytics 2019 Fundamentals of Data Analysis Assessment
+### HDip Data Analytics 2019 
+### 52446 Fundamentals of Data Analysis Assessment
 
 Git-hub repository at:
 https://github.com/elizabethdaly/data-analysis-project.git
@@ -27,23 +28,49 @@ https://github.com/elizabethdaly/data-analysis-project.git
 6. [References](#references)
 
 ## 1. Introduction <a name="introduction"></a>
-- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, and Seaborn. 
+- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, . 
 - The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook from the folder containing the file. Jupyter notebook comes as part of the Anaconda distribution of Python (as do the other packages listed above). 
 - Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. 
 - The Tips data set is incuded in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. It is located in the **data** subdirectory.
-- All images intended for inclusion in this README are located in the **images** subdirectory.
+- All images intended for inclusion in this README are located in the **images** subdirectory of this repository.
 - I have tried to structure the Jupyter notebook and this README so that they have corresponding sections. However, I do not wish to merely repeat here what has been stated in the notebook. I will endevour to have this README summarize the work of the notebook and, hopefully, complement the analyses done there.
 
 ##  2. Description of the data set <a name="section1"></a>
-The Tips data set contains 244 rows of data relating to tips left in a restaurant. I will assume that the currency is $, as tipping is standard practice in the US. The data set includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
+The Tips data set contains 244 rows of data relating to tips left in a restaurant. I will assume that the currency is $, as I think this is an American data set. The data set includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
 
-I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. 
+I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. This is what the head of the data set looks like:
 
 ![head](images/head.JPG)
 
-Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference [] below, in Wes McKinney's book when he is using the Tips data set as an example, and in the Case Study 1: Restaurant Tipping report below. So it seems like a sensible step to take.
+Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the Case Study 1: Restaurant Tipping report also below. So it seems like a sensible step to take.
 
 ![describeAll](images/describeAll.JPG)
+
+From this summary we can say that:
+1. The average tip (as a fraction of total bill) is about 16%.
+2. There is an outlier in the data set: one diner (male smoker at dinner on a Sunday) left a 71% tip. 
+3. The 50th percentile is very similar to the mean, so the mean tip is a typical value in the data set.
+4. More males than females paid the bill, 157 of the 244 observations.
+5. More non-smokers than smokers paid the bill, 151 of the 244 observations.
+6. Most of the observations relate to Saturday, 87 of the 244.
+7. Most of the observations relate to dinner, 176 of the 244.
+8. Party size varied from 1 to 6, with the average size being 2.5.
+
+![tipVSbill](images/tipVSbill.png)
+
+We can use Pandas **groupby()** to get more detailed information about tipping behaviour for each category of diner. From this part of the notebook, we can conclude that:
+1. It seems that non-smokers, regardless of their sex, leave similar tips (about 16%).
+2. On the other hand, for smokers, females leave higher tips than males on average (18% versus 15%).
+3. The most frequently-occurring party size is 2 (156 of the total), followed by 3 (38), and 4 (37). There are only a handful of observations related to party sizes of 1, 5, and 6.
+4. The data set only contains information about dinner on Saturday (87 out of 244) and Sunday (76). There is one dinner observation on Thursday, the rest are dinner (61). Friday has lunch and dinner recorded, but overall numbers are small (19 in total).
+5. The highest average tip (as a fraction of total bill) is left at lunch on Fridays.
+
+The following plots summarize this information.
+
+![barSmokerSex](images/barSmokerSex.png)
+
+![barDayTime](images/barDayTime.png)
+
 
 ##  3. Regression <a name="section2"></a>
 For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn regplot. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
@@ -74,21 +101,24 @@ We can use our linear regression parameters to predict the tip amount for any to
 - Considering data from Thursday alone, we predict a tip of $13.29;
 - In contrast, Sunday data predicts just $8.77 as a tip.
 
-As the average total bill in this restaurant is just less than $20 and the maximum is about $50 it's unlikey that anyone would ever spend $100 here in the first place!
+As the average total bill in this restaurant is just less than $20 and the maximum is about $50 it's unlikely that anyone would ever spend $100 here in the first place!
 
-ML predict classify?
+ML predict classify? Maybe next section.
 
 ## 4. Relationships between variables <a name="section3"></a>
+<!--Maybe pivot_table() here?-->
 
 ## 5. Work done by other people on the Tips data set <a name="section4"></a>
-The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below.
-I found an annonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report (indeed I don't know what application was used to perform the analysis), but I'm guessing a pure statistics package as there is mention of t-values and p-values. 
+The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report (indeed I don't know what application was used to perform the analysis), but I'm guessing a pure statistics package as there is mention of t-values and p-values. 
 Regression using all cat vars.
 Others..brief discussion here.
 
-## 6. Conclusion <a name="conclusion"></a>
+## 6. Conclusions <a name="conclusion"></a>
 
 ## 7. References <a name="references"></a>
+
+**General:**
+
 - [1]  Anaconda Distribution
 https://www.anaconda.com/
 
@@ -113,6 +143,8 @@ https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
 - [8] Description of what is contained in the tips set
 https://www.kaggle.com/ranjeetjain3/seaborn-tips-dataset
 
+**Exploratory data analysis:**
+
 - [] Exploratory Statistical Data Analysis with a Real Dataset using Pandas
 https://towardsdatascience.com/exploratory-statistical-data-analysis-with-a-real-dataset-using-pandas-208007798b92
 
@@ -131,6 +163,8 @@ https://www.youtube.com/watch?v=1MGCD8SQp3k
 - [13] Good description of quartiles on Seaborn plots
 https://towardsdatascience.com/analyze-the-data-through-data-visualization-using-seaborn-255e1cd3948e
 
+**Regression:**
+
 - [14] Ordinary Least Squares in statsmodels
 https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
 
@@ -146,7 +180,7 @@ https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-
 - [18] Regression Analysis: How Do I Interpret R-squared and Assess the Goodness-of-Fit?
 https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit
 
-References directly relating to Tips:
+**References directly relating to Tips:**
 
 - [19] Tips data set in PYTHON MACHINE LEARNING EXAMPLE – LINEAR REGRESSION
 https://devarea.com/python-machine-learning-example-linear-regression/#.XbbfgOj7Q2w
