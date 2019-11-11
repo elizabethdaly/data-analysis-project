@@ -38,11 +38,11 @@ https://github.com/elizabethdaly/data-analysis-project.git
 ##  2. Description of the data set <a name="section1"></a>
 The Tips data set contains 244 rows of data relating to tips left in a restaurant. I will assume that the currency is $, as I think this is an American data set. The data set includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
 
-I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. This is what the head of the data set looks like:
+I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. The head of the data set looks like:
 
 ![head](images/head.JPG)
 
-Pandas **decribe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the Case Study 1: Restaurant Tipping report also below. So it seems like a sensible step to take.
+Pandas **describe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the *Case Study 1: Restaurant Tipping* report also below. So it seems like a sensible step to take.
 
 ![describeAll](images/describeAll.JPG)
 
@@ -56,13 +56,15 @@ From this summary we can say that:
 7. Most of the observations relate to dinner, 176 of the 244.
 8. Party size varied from 1 to 6, with the average size being 2.5.
 
+This is what a plot of tip versus total bill looks like. Here, data from each day is plotted in a different colour, but the same could also be done for any of the other categorical variables sex, smoker, and time.
+
 ![tipVSbill](images/tipVSbill.png)
 
 We can use Pandas **groupby()** to get more detailed information about tipping behaviour for each category of diner. From this part of the notebook, we can conclude that:
 1. It seems that non-smokers, regardless of their sex, leave similar tips (about 16%).
 2. On the other hand, for smokers, females leave higher tips than males on average (18% versus 15%).
 3. The most frequently-occurring party size is 2 (156 of the total), followed by 3 (38), and 4 (37). There are only a handful of observations related to party sizes of 1, 5, and 6.
-4. The data set only contains information about dinner on Saturday (87 out of 244) and Sunday (76). There is one dinner observation on Thursday, the rest are dinner (61). Friday has lunch and dinner recorded, but overall numbers are small (19 in total).
+4. The data set only contains information about dinner on Saturday (87 out of 244) and Sunday (76). There is one dinner observation on Thursday, the rest are lunch (61). Friday has lunch and dinner recorded, but overall numbers are small (19 in total).
 5. The highest average tip (as a fraction of total bill) is left at lunch on Fridays.
 
 The following plots summarize this information.
@@ -74,6 +76,9 @@ The following plots summarize this information.
 
 ##  3. Regression <a name="section2"></a>
 For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn regplot. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
+
+Do simple linear regression as per week 9 lectures. Calculate cost etc.
+![SimpleLinReg](images/lsqalldata.png)
 
 We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit. Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn, which is useful for making predictions using the dataset. 
 
@@ -93,7 +98,7 @@ day = Fri     | 0.597     | 0.095 | 1.109     |
 day = Sat     | 0.495     | 0.121 | 0.519     |
 day = Sun     | 0.251     | 0.070 | 1.753     |
 
-What can we conclude from this? That the data is fitted well by a linear model for non-smokers (regardless of sex) and for day = Thursday; these subsets result in the largest R<sup>2</sup> values and also high slopes. Maybe considering data from non-smokers on Thursday would produce the most reliable predictions of tip given total bill?
+What can we conclude from this? If higher R<sup>2</sup> indicates better a fit, then the data is fitted well by a linear model for non-smokers (regardless of sex) and for day = Thursday; these subsets result in the largest R<sup>2</sup> values and also high slopes. Maybe considering data from non-smokers on Thursday would produce the most reliable predictions of tip given total bill?
 
 We can use our linear regression parameters to predict the tip amount for any total bill, say a bill of $100. 
 - Using all of the data, we predict a tip of $11.42 for this total bill amount;
