@@ -75,9 +75,13 @@ The following plots summarize this information.
 
 
 ##  3. Regression <a name="section2"></a>
-For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn regplot. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
+For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
 
-Do simple linear regression as per week 9 lectures. Calculate cost etc.
+We perform a simple linear regression analysis of the data as per week 9 lectures. **numpy.polyfit** can calculate the slope and intercept of the best fit line, but we must use **numpy.corrcoef** to evaluate the strength of the linear relationship between the total bill and tip amount. This function returns a matrix from which we can calculate the R<sup>2<sup> value as explained in the xxx reference below. The fitting parameters for our linear model are: 
+- slope = 0.105
+- intercept = 0.920
+- R<sup>2<sup> = 0.457
+
 ![SimpleLinReg](images/LSQalldata.png)
 
 We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit. Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn, which is useful for making predictions using the dataset. 
@@ -184,6 +188,9 @@ https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-
 
 - [18] Regression Analysis: How Do I Interpret R-squared and Assess the Goodness-of-Fit?
 https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit
+
+- [] Python and R Tips To Learn Data Science: Pearson and Spearman Correlation in Python
+https://cmdlinetips.com/2019/08/how-to-compute-pearson-and-spearman-correlation-in-python/
 
 **References directly relating to Tips:**
 
