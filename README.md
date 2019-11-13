@@ -28,12 +28,12 @@ https://github.com/elizabethdaly/data-analysis-project.git
 6. [References](#references)
 
 ## 1. Introduction <a name="introduction"></a>
-- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, . 
+- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, scikit-learn, and statsmodels. 
 - The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook from the folder containing the file. Jupyter notebook comes as part of the Anaconda distribution of Python (as do the other packages listed above). 
 - Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. 
-- The Tips data set is incuded in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. It is located in the **data** subdirectory.
+- The Tips data set is included in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. It is located in the **data** subdirectory.
 - All images intended for inclusion in this README are located in the **images** subdirectory of this repository.
-- I have tried to structure the Jupyter notebook and this README so that they have corresponding sections. However, I do not wish to merely repeat here what has been stated in the notebook. I will endevour to have this README summarize the work of the notebook and, hopefully, complement the analyses done there.
+- I have tried to structure the Jupyter notebook and this README so that they have corresponding sections. However, I do not wish to merely repeat here what has been stated in the notebook. I will endeavour to have this README summarize the work of the notebook and, hopefully, complement the analyses done there.
 
 ##  2. Description of the data set <a name="section1"></a>
 The Tips data set contains 244 rows of data relating to tips left in a restaurant. I will assume that the currency is $, as I think this is an American data set. The data set includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
@@ -75,18 +75,20 @@ The following plots summarize this information.
 
 
 ##  3. Regression <a name="section2"></a>
-For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intecept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
+For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
 
-We perform a simple linear regression analysis of the data as per week 9 lectures. **numpy.polyfit** can calculate the slope and intercept of the best fit line, but we must use **numpy.corrcoef** to evaluate the strength of the linear relationship between the total bill and tip amount. This function returns a matrix from which we can calculate the R<sup>2<sup> value as explained in the xxx reference below. The fitting parameters for our linear model are: 
+We perform a simple linear regression analysis of the data as per the week 9 lectures for this module. **numpy.polyfit** can calculate the slope and intercept of the best fit line based on least squares fitting. It doesn't directly return a metric, so we must use **numpy.corrcoef** to evaluate the strength of the linear relationship between the total bill and tip amount. This function returns a matrix from which we can calculate the R<sup>2</sup> value as explained in the reference below about Pearson and Spearman Correlation in Python. The fitting parameters for our linear model are: 
 - slope = 0.105
 - intercept = 0.920
-- R<sup>2<sup> = 0.457
+- R<sup>2</sup> = 0.457
+
+So, a linear relationship does exist between the total bill and the tip amount, but it's not a very strong one. I'll discuss that more below.
 
 ![SimpleLinReg](images/LSQalldata.png)
 
 We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit. Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn, which is useful for making predictions using the dataset. 
 
-In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab [] link in the references discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips dataset falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit) may produce a better R<sup>2</sup> but wouldn't be a good way to model how tip amount varies with total bill. The results of regression on all of the data, and on subsets of it, are presented in the table below.
+In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab reference below discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips dataset falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit) may produce a better R<sup>2</sup> but wouldn't be a sensible way to model how tip amount varies with total bill. The results of regression on all of the data, and on subsets of it, are presented in the table below.
 
 Line fit    | R<sup>2</sup> | slope | intercept
 ------------|---------------|-------|----------
@@ -112,10 +114,12 @@ We can use our linear regression parameters to predict the tip amount for any to
 
 As the average total bill in this restaurant is just less than $20 and the maximum is about $50 it's unlikely that anyone would ever spend $100 here in the first place!
 
-ML predict classify? Maybe next section.
-
 ## 4. Relationships between variables <a name="section3"></a>
+We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse relationships between variables in the dataset.   
+First step is a pairplot - regression.
+<!--ML predict classify-->
 <!--Maybe pivot_table() here?-->
+<!--Questions-->
 
 ## 5. Work done by other people on the Tips data set <a name="section4"></a>
 The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report (indeed I don't know what application was used to perform the analysis), but I'm guessing a pure statistics package as there is mention of t-values and p-values. 
@@ -151,6 +155,12 @@ https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
 
 - [8] Description of what is contained in the tips set
 https://www.kaggle.com/ranjeetjain3/seaborn-tips-dataset
+
+- [] scikit-learn: Machine Learning in Python
+https://scikit-learn.org/stable/index.html
+
+- [] StatsModels: Statistics in Python
+https://www.statsmodels.org/stable/index.html
 
 **Exploratory data analysis:**
 
