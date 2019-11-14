@@ -36,7 +36,7 @@ https://github.com/elizabethdaly/data-analysis-project.git
 - I have tried to structure the Jupyter notebook and this README so that they have corresponding sections. However, I do not wish to merely repeat here what has been stated in the notebook. I will endeavour to have this README summarize the work of the notebook and, hopefully, complement the analyses done there.
 
 ##  2. Description of the data set <a name="section1"></a>
-The Tips data set contains 244 rows of data relating to tips left in a restaurant. I will assume that the currency is $, as I think this is an American data set. The data set includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in section 3. <!--put in a ref-->
+The data in the tips dataset was gathered over a two and a half month period in early 1990. It contains 244 rows of data relating to tips left in a restaurant. I will assume that the currency is $, as I think this is an American data set. Information within includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in sections 3 and 4.
 
 I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. The head of the data set looks like:
 
@@ -48,7 +48,8 @@ Pandas **describe()** can provide a quick summary of the data set as outlined in
 
 From this summary we can say that:
 1. The average tip (as a fraction of total bill) is about 16%.
-2. There is an outlier in the data set: one diner (male smoker at dinner on a Sunday) left a 71% tip. 
+2. There is an outlier in the data set: a male smoker at dinner on Sunday in party size of 2, left a 71% tip. 
+3. The lowest tip rate was also left by a male smoker at dinner in a party size of 2, but on Saturday; 3.6%. 
 3. The 50th percentile is very similar to the mean, so the mean tip is a typical value in the data set.
 4. More males than females paid the bill, 157 of the 244 observations.
 5. More non-smokers than smokers paid the bill, 151 of the 244 observations.
@@ -66,8 +67,9 @@ We can use Pandas **groupby()** to get more detailed information about tipping b
 3. The most frequently-occurring party size is 2 (156 of the total), followed by 3 (38), and 4 (37). There are only a handful of observations related to party sizes of 1, 5, and 6.
 4. The data set only contains information about dinner on Saturday (87 out of 244) and Sunday (76). There is one dinner observation on Thursday, the rest are lunch (61). Friday has lunch and dinner recorded, but overall numbers are small (19 in total).
 5. The highest average tip (as a fraction of total bill) is left at lunch on Fridays.
+6. The lowest average tip (as a fraction of total bill) is left at dinner on Saturdays.
 
-The following plots summarize this information.
+The following plots summarize this information. So far it looks like the best time to be waiter in this restaurant is at lunch on Fridays.
 
 ![barSmokerSex](images/barSmokerSex.png)
 
@@ -115,10 +117,11 @@ We can use our linear regression parameters to predict the tip amount for any to
 As the average total bill in this restaurant is just less than $20 and the maximum is about $50 it's unlikely that anyone would ever spend $100 here in the first place!
 
 ## 4. Relationships between variables <a name="section3"></a>
-We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse relationships between variables in the dataset.   
-First step is a pairplot - regression.
+We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the dataset.   
+- First step is a pairplot - regression.
+- Maybe pivot_table()
 <!--ML predict classify-->
-<!--Maybe pivot_table() here?-->
+
 <!--Questions-->
 
 ## 5. Work done by other people on the Tips data set <a name="section4"></a>
@@ -230,3 +233,6 @@ https://grindsquare.co.za/python-data-visualisation-using-seaborn/
 
 - [] Excerpt from the Python Data Science Handbook by Jake VanderPlas; Jupyter notebooks are available on GitHub.
 https://jakevdp.github.io/PythonDataScienceHandbook/04.14-visualization-with-seaborn.html
+
+- [] Interactive analytics and predictions on Restaurant tips
+https://datasciencechalktalk.com/2019/11/03/interactive-analytics-and-predictions-on-restaurant-tips/
