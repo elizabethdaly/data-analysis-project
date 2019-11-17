@@ -28,7 +28,7 @@ https://github.com/elizabethdaly/data-analysis-project.git
 6. [References](#references)
 
 ## 1. Introduction <a name="introduction"></a>
-- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, scikit-learn, and statsmodels. 
+- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, scikit-learn, statsmodels, and SciPy. 
 - The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook from the folder containing the file. Jupyter notebook comes as part of the Anaconda distribution of Python (as do the other packages listed above). 
 - Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. 
 - The Tips data set is included in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. It is located in the **data** subdirectory.
@@ -77,8 +77,12 @@ The following plots summarize this information. So far it looks like the best ti
 
 
 ##  3. Regression <a name="section2"></a>
-For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
+For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. 
 
+### 3.1 Regression in Seaborn
+In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
+
+### 3.2 Simple linear regression using polyfit
 We perform a simple linear regression analysis of the data as per the week 9 lectures for this module. **numpy.polyfit** can calculate the slope and intercept of the best fit line based on least squares fitting. It doesn't directly return a metric, so we must use **numpy.corrcoef** to evaluate the strength of the linear relationship between the total bill and tip amount. This function returns a matrix from which we can calculate the R<sup>2</sup> value as explained in the reference below about Pearson and Spearman Correlation in Python. The fitting parameters for our linear model are: 
 - slope = 0.105
 - intercept = 0.920
@@ -88,9 +92,13 @@ So, a linear relationship does exist between the total bill and the tip amount, 
 
 ![SimpleLinReg](images/LSQalldata.png)
 
+### 3.3 and 3.4 Regression with Statsmodels and scikit-learn
 We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit. Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn, which is useful for making predictions using the dataset. 
 
-In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab reference below discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips dataset falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit) may produce a better R<sup>2</sup> but wouldn't be a sensible way to model how tip amount varies with total bill. The results of regression on all of the data, and on subsets of it, are presented in the table below.
+In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab reference below discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips dataset falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit) may produce a better R<sup>2</sup> but wouldn't be a sensible way to model how tip amount varies with total bill. 
+
+### Linear regression on various subsets of the data 
+The results of regression on all of the data, and on subsets of it, are presented in the table below.
 
 Line fit    | R<sup>2</sup> | slope | intercept
 ------------|---------------|-------|----------
@@ -108,7 +116,7 @@ day = Sun     | 0.251     | 0.070 | 1.753     |
 
 What can we conclude from this? If higher R<sup>2</sup> indicates better a fit, then the data is fitted well by a linear model for non-smokers (regardless of sex) and for day = Thursday; these subsets result in the largest R<sup>2</sup> values and also high slopes. Maybe considering data from non-smokers on Thursday would produce the most reliable predictions of tip given total bill?
 
-We can use our linear regression parameters to predict the tip amount for any total bill, say a bill of $100. 
+We can use our linear regression parameters to **predict** the tip amount for any total bill, say a bill of $100. 
 - Using all of the data, we predict a tip of $11.42 for this total bill amount;
 - For male non-smokers only, we predict a tip of $14.32;
 - Considering data from Thursday alone, we predict a tip of $13.29;
@@ -118,8 +126,17 @@ As the average total bill in this restaurant is just less than $20 and the maxim
 
 ## 4. Relationships between variables <a name="section3"></a>
 We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the dataset.   
-- First step is a pairplot - regression.
+
+### 4.1 Visualize relationships between numerical variables with pairplot
+- Suggests a relationship between tip and total bill. Done in part 3.
+
+### 4.2 Investigate relationships between tip amount and the categorical variables
 - Maybe pivot_table()
+
+### 4.3 Does the amount spent depend on party size?
+- per person bill & tip with fits
+
+### 4.4 Predict/classify
 <!--ML predict classify-->
 
 <!--Questions-->
@@ -130,6 +147,11 @@ Regression using all cat vars.
 Others..brief discussion here.
 
 ## 6. Conclusions <a name="conclusion"></a>
+Main findings:
+1. one
+2. two
+3. three
+4. etc
 
 ## 7. References <a name="references"></a>
 
@@ -164,6 +186,9 @@ https://scikit-learn.org/stable/index.html
 
 - [] StatsModels: Statistics in Python
 https://www.statsmodels.org/stable/index.html
+
+- [] scipy.stats : Statistics with SciPy
+https://docs.scipy.org/doc/scipy/reference/tutorial/stats.html
 
 **Exploratory data analysis:**
 
