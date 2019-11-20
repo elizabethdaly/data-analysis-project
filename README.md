@@ -95,12 +95,20 @@ The following plots summarize this information graphically. So far it looks like
 ![barDayTime](images/barDayTime.png)
 
 ##  3. Regression <a name="section3"></a>
-For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. 
+For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. A linear model looks like:
 
-<!--pic-->
+**y = m x + c**
+
+where
+- y is the tip
+- x is the total bill
+- m is the slope of the line
+- c is the y intercept
 
 ### 3.1 Regression in Seaborn <a name="sec3p1"></a>
-In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
+In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. Here we plot the best straight lines through smoker and non-smoker data points, as found by Seaborn. We will explore this further later on.
+
+![SeabornFit](images/lmpltSmoke.png)
 
 ### 3.2 Simple linear regression using polyfit <a name="sec3p2"></a>
 We perform a simple linear regression analysis of the data as per the week 9 lectures for this module. **numpy.polyfit** can calculate the slope and intercept of the best fit line based on least squares fitting. It doesn't directly return a metric, so we must use **numpy.corrcoef** to evaluate the strength of the linear relationship between the total bill and tip amount. This function returns a matrix from which we can calculate the R<sup>2</sup> value as explained in the reference below about Pearson and Spearman Correlation in Python. The fitting parameters for our linear model are: 
