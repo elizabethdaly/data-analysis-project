@@ -8,7 +8,7 @@ Git-hub repository at:
 https://github.com/elizabethdaly/data-analysis-project.git
 
 - Jupyter notebook: **tips-data-analysis.ipynb**
-- Dataset: data\tips.csv
+- data set: data\tips.csv
 
 ![Tips](images/tip.jpg)
 
@@ -16,6 +16,10 @@ https://github.com/elizabethdaly/data-analysis-project.git
 1. [Introduction](#introduction)
 
 2. [Description of the data set](#section2)
+    1. [Initial steps](#sec2p1)
+    2. [Descriptive statistics](#sec2p2)
+    3. [Start looking at categories of diner](#sec2.3)
+    4. [Plots to summarize some statistics](#sec2p4)
 
 3. [Regression](#section3)
     1. [Regression in Seaborn](#sec3p1)
@@ -45,13 +49,17 @@ https://github.com/elizabethdaly/data-analysis-project.git
 - I have tried to structure the Jupyter notebook and this README so that they have corresponding sections. However, I do not wish to merely repeat here what has been stated in the notebook. I will endeavour to have this README summarize the work of the notebook and, hopefully, complement the analyses done there.
 
 ##  2. Description of the data set <a name="section2"></a>
-The data in the tips dataset was gathered over a two and a half month period in early 1990. It contains 244 rows of data relating to tips left in a restaurant. I will assume that the currency is $, as I'm pretty certain that this is an American data set. Information within includes the total bill, tip, number in the party, day of week, time of day, gender of the diner, and whether or not they are a smoker. I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in sections 3 and 4.
+The data in the tips data set was gathered over a two and a half month period in early 1990. It contains 244 rows of data relating to tips left in a restaurant. I'm pretty certain that this is an American data set so I will assume that the currency is $. Information within includes the total bill, tip, number in the party, day of week, time of day, gender of the person paying the bill, and whether or not they are a smoker. The total bill and tip are non-negative real numbers with two decimal places; the standard way to represent currency. The size variable is an integer with values from 1 to 6. Tip, total bill, and size are numerical variables. The remaining variables are categorical with the following possible values: sex (Male, Female), smoker (Yes, No), day (Thursday, Friday, Saturday, Sunday) and time (Lunch, Dinner). 
 
+I would say that the basic question is: does the tip amount depend on the total bill? One can also ask if the other variables influence the tip amount. Some of these questions will be addressed in sections 3 and 4.
+
+### 2.1 Initial steps <a name="sec2p1"></a>
 I often use sites such as Medium.com to see how other people have investigated data sets using Python. Two examples of such exploratory data analyses are given in the reference list. The very first step is always to check if the data needs cleaning by looking for duplicate rows, zero values or NaNs where they shouldn't be, etc. Our data set is small enough to inspect visually and it looks fine. Counting the number of valid entries in each column confirms this. The head of the data set looks like:
 
 ![head](images/head.JPG)
 
-Pandas **describe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the *Case Study 1: Restaurant Tipping* report also below. So it seems like a sensible step to take. The output of pandas **describe(include="all")** is shown below. Here, all columns of the data frame are included in the analysis.
+### 2.2 Descriptive statistics <a name="sec2p2></a>
+Pandas **describe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the *Case Study 1: Restaurant Tipping* report also below. So it seems like a sensible step to take. The output of pandas **describe(include="all")** is shown below. Here, all columns of the DataFrame are included in the analysis.
 
 ![describeAll](images/describeAll.JPG)
 
@@ -70,7 +78,8 @@ This is what a plot of tip versus total bill looks like. Here, data from each da
 
 ![tipVSbill](images/tipVSbill.png)
 
-We can use Pandas **groupby()** to get more detailed information about tipping behaviour for each category of diner. From this part of the notebook, we can conclude that:
+### 2.3 Start looking at categories of diner  <a name="sec2p3></a>
+We can use Pandas **groupby()** to get more detailed information about tipping behaviour for each category of diner. We are concerned with the fractional tip. From this part of the notebook, we can conclude that:
 1. It seems that non-smokers, regardless of their sex, leave similar tips (about 16%).
 2. On the other hand, for smokers, females leave higher tips than males on average (18% versus 15%).
 3. The most frequently-occurring party size is 2 (156 of the total), followed by 3 (38), and 4 (37). There are only a handful of observations related to party sizes of 1, 5, and 6.
@@ -78,15 +87,17 @@ We can use Pandas **groupby()** to get more detailed information about tipping b
 5. The highest average tip (as a fraction of total bill) is left at lunch on Fridays.
 6. The lowest average tip (as a fraction of total bill) is left at dinner on Saturdays.
 
-The following plots summarize this information. So far it looks like the best time to be waiter in this restaurant is at lunch on Fridays if one is interested in the highest fractional tip. The best type of diner to serve is a female smoker.
+### 2.4 Plots to summarize some statistics <a name="sec2p4"></a>
+The following plots summarize this information graphically. So far it looks like the best time to be waiter in this restaurant is at lunch on Fridays if one is interested in the highest fractional tip. The best type of diner to serve is a female smoker. I'm not yet sure how the day and time variables are related to sex and smoker ones.
 
 ![barSmokerSex](images/barSmokerSex.png)
 
 ![barDayTime](images/barDayTime.png)
 
-
 ##  3. Regression <a name="section3"></a>
 For this part of the assessment, we have been asked to analyse if there is a relationship between the total bill and the tip amount. The simplest relationship would be a linear one. That's reasonable when we consider that tips (especially in the US) are usually a fixed percentage of the total bill. 
+
+<!--pic-->
 
 ### 3.1 Regression in Seaborn <a name="sec3p1"></a>
 In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. 
@@ -97,19 +108,19 @@ We perform a simple linear regression analysis of the data as per the week 9 lec
 - intercept = 0.920
 - R<sup>2</sup> = 0.457
 
-So, a linear relationship does exist between the total bill and the tip amount, but it's not a very strong one. I'll discuss that more below.
+So, a linear relationship does exist between the total bill and the tip amount, but in my opinion, it's not a very strong one. When dealing with scientific data in the past, I would be looking for much higher R<sup>2</sup> values. I'll discuss that more below.
 
 ![SimpleLinReg](images/LSQalldata.png)
 
 ### 3.3 Regression with Statsmodels <a name="sec3p3"></a>
-We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit. For each data point, square the difference between it and the best fit, and sum all of these residuals. We modify the model slightly to include a y intercept. The model returns a report containing statistical information, but for this project we are interested in the slope, intercept, and value of R<sup>2</sup>.
+We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit. For each data point, square the difference between it and the best fit, and sum all of these residuals. We modify the model slightly to include a y intercept. The model returns a report containing statistical information, but for this project we are only interested in the slope, intercept, and value of R<sup>2</sup>.
 
 ### 3.4 Regression with scikit-learn <a name="sec3p4"></a>
-Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn.  This package is useful for making predictions using the dataset, something we may get on to later. We use the scikit-learn LinearRegression model which performs OLS fitting.
+Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn.  This package is useful for making predictions using the data set, something we may get on to later. We use the scikit-learn LinearRegression model which performs OLS fitting.
 
-In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab reference below discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips dataset falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit)may produce a better value of R<sup>2</sup> but wouldn't be a sensible way to model how tip amount varies with total bill. 
+In regression, R<sup>2</sup> is the coefficient of determination, a measure of how close the data points are to the fitted regression line; or how much of the variation in the data is explained by the linear model. It ranges from 0 to 1, and in general, higher values of R<sup>2</sup> are better. However, as the minitab reference below discusses, that's not the full story. That reference states that in fields which try to predict human behaviour (the tips data set falls into this category), values of R<sup>2</sup> less that 0.5 are not unusual; we find R<sup>2</sup> = 0.457 on average. It's also important to take into account the appropriateness of the model when assessing R<sup>2</sup>. Another model (perhaps a high-order polynomial fit) may produce a better value of R<sup>2</sup> but wouldn't be a sensible way to model how tip amount varies with total bill. 
 
-To conclude this part of the analysis: the tip does depend linearly on the total bill in this dataset. The slope of the best fit line is 0.105, the y intercept is 0.920, and R<sup>2</sup> is 0.457.
+To conclude this part of the analysis: the tip does depend linearly on the total bill in this data set. The slope of the best fit line is 0.105, the y intercept is 0.920, and R<sup>2</sup> is 0.457.
 
 ### 3.5 Linear regression on various subsets of the data <a name="sec3p5"></a>
 The results of regression on all of the data, and on subsets of it, are presented in the table below.
@@ -131,7 +142,8 @@ day = Sun     | 0.251     | 0.070 | 1.753     |
 What can we conclude from this? If higher R<sup>2</sup> indicates better a fit, then the data is fitted well by a linear model for non-smokers (regardless of sex) and for day = Thursday; these subsets result in the largest R<sup>2</sup> values and also high slopes. Maybe considering data from non-smokers on Thursday would produce the most reliable predictions of tip given total bill?
 
 **Tip predictions:**
-We can use our linear regression parameters to **predict** the tip amount for any total bill, say a bill of $100. 
+
+We can use our linear regression parameters to predict the tip amount for any total bill, say a bill of $100. 
 - Using all of the data, we predict a tip of $11.42 for this total bill amount;
 - For male non-smokers only, we predict a tip of $14.32;
 - Considering data from Thursday alone, we predict a tip of $13.29;
@@ -140,7 +152,7 @@ We can use our linear regression parameters to **predict** the tip amount for an
 As the average total bill in this restaurant is just less than $20 and the maximum is about $50, it's unlikely that anyone would ever spend $100 here in the first place!
 
 ## 4. Relationships between variables <a name="section4"></a>
-We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the dataset.   
+We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the data set.   
 
 ### 4.1 Visualize relationships between numerical variables with pairplot <a name="sec4p1"></a>
 - Suggests a relationship between tip and total bill. Done in part 3.
@@ -157,8 +169,8 @@ We have investigated if the tip amount is related to the total bill, and we have
 <!--Questions-->
 
 ## 5. Work done by other people on the Tips data set <a name="section5"></a>
-The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report (indeed I don't know what application was used to perform the analysis), but I'm guessing a pure statistics package as there is mention of t-values and p-values. 
-Regression using all cat vars.
+The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report (indeed I don't know what application was used to perform the analysis), but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. 
+Regression using all cat vars? If time.
 Others..brief discussion here.
 
 ## 6. Conclusions <a name="conclusion"></a>
@@ -190,11 +202,11 @@ https://seaborn.pydata.org/index.html#
 - [6] matplotlib: Python plotting library
 https://matplotlib.org/
 
-- [7] The Tips dataset from Michael Waskom
+- [7] The Tips data set from Michael Waskom
 https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
 
 - [8] Description of what is contained in the tips set
-https://www.kaggle.com/ranjeetjain3/seaborn-tips-dataset
+https://www.kaggle.com/ranjeetjain3/seaborn-tips-data set
 
 - [] scikit-learn: Machine Learning in Python
 https://scikit-learn.org/stable/index.html
@@ -207,14 +219,14 @@ https://docs.scipy.org/doc/scipy/reference/tutorial/stats.html
 
 **Exploratory data analysis:**
 
-- [] Exploratory Statistical Data Analysis with a Real Dataset using Pandas
-https://towardsdatascience.com/exploratory-statistical-data-analysis-with-a-real-dataset-using-pandas-208007798b92
+- [] Exploratory Statistical Data Analysis with a Real data set using Pandas
+https://towardsdatascience.com/exploratory-statistical-data-analysis-with-a-real-data set-using-pandas-208007798b92
 
 - [9] How to investigate a data set with Python
 https://towardsdatascience.com/hitchhikers-guide-to-exploratory-data-analysis-6e8d896d3f7e
 
 - [10] Data analysis with Python
-https://medium.com/@onpillow/01-investigate-tmdb-movie-dataset-python-data-analysis-project-part-1-data-wrangling-3d2b55ea7714
+https://medium.com/@onpillow/01-investigate-tmdb-movie-data set-python-data-analysis-project-part-1-data-wrangling-3d2b55ea7714
 
 - [11] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
 Wes McKinney. ISBN-13: 978-1491957660 ISBN-10: 1491957662
