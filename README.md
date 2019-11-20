@@ -24,9 +24,9 @@ https://github.com/elizabethdaly/data-analysis-project.git
 3. [Regression](#section3)
     1. [Regression in Seaborn](#sec3p1)
     2. [Simple linear regression using polyfit](#sec3p2)
-    3. [Regression with Statsmodels](#sec3.3)
+    3. [Regression with Statsmodels](#sec3p3)
     4. [Regression with scikit-learn](#sec3p4)
-    5. [Linear regression on various subsets of the data](#sec3.5)
+    5. [Linear regression on various subsets of the data](#sec3p5)
     
 4. [Relationships between variables](#section4)
     1. [Visualize relationships between numerical variables with pairplot](#sec4p1)
@@ -58,7 +58,7 @@ I often use sites such as Medium.com to see how other people have investigated d
 
 ![head](images/head.JPG)
 
-### 2.2 Descriptive statistics <a name="sec2p2></a>
+### 2.2 Descriptive statistics <a name="sec2p2"></a>
 Pandas **describe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the *Case Study 1: Restaurant Tipping* report also below. So it seems like a sensible step to take. The output of pandas **describe(include="all")** is shown below. Here, all columns of the DataFrame are included in the analysis.
 
 ![describeAll](images/describeAll.JPG)
@@ -78,7 +78,7 @@ This is what a plot of tip versus total bill looks like. Here, data from each da
 
 ![tipVSbill](images/tipVSbill.png)
 
-### 2.3 Start looking at categories of diner  <a name="sec2p3></a>
+### 2.3 Start looking at categories of diner <a name="sec2p3"></a>
 We can use Pandas **groupby()** to get more detailed information about tipping behaviour for each category of diner. We are concerned with the fractional tip. From this part of the notebook, we can conclude that:
 1. It seems that non-smokers, regardless of their sex, leave similar tips (about 16%).
 2. On the other hand, for smokers, females leave higher tips than males on average (18% versus 15%).
