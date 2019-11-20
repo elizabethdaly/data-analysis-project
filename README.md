@@ -18,7 +18,7 @@ https://github.com/elizabethdaly/data-analysis-project.git
 2. [Description of the data set](#section2)
     1. [Initial steps](#sec2p1)
     2. [Descriptive statistics](#sec2p2)
-    3. [Start looking at categories of diner](#sec2.3)
+    3. [Start looking at categories of diner](#sec2p3)
     4. [Plots to summarize some statistics](#sec2p4)
 
 3. [Regression](#section3)
