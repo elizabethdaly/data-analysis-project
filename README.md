@@ -106,7 +106,7 @@ where
 - c is the y intercept
 
 ### 3.1 Regression in Seaborn <a name="sec3p1"></a>
-In the notebook we first use Seaborn to visualize any linear relationships between our two variables of interest using Seaborn **regplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. Here we plot the best straight lines through smoker and non-smoker data points, as found by Seaborn. We will look at these categories again later on in this section.
+In the notebook we first use Seaborn to visualize any linear relationship between our two variables of interest using **regplot** and **lmplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. Here we plot the best straight lines through smoker and non-smoker data points, as found by Seaborn. We will look at these categories again later on in this section.
 
 ![SeabornFit](images/lmplotSmoke.png)
 
@@ -163,13 +163,30 @@ As the average total bill in this restaurant is just less than $20 and the maxim
 We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the data set.   
 
 ### 4.1 Visualize relationships between numerical variables with pairplot <a name="sec4p1"></a>
-- Suggests a relationship between tip and total bill. Done in part 3.
+The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories are not overlapping. We don't see much evidence for that here - unlike say in the iris data set. 
 
 ### 4.2 Investigate relationships between tip amount and the categorical variables <a name="sec4p2"></a>
 - Maybe pivot_table()
 
 ### 4.3 Does the amount spent depend on party size? <a name="sec4p3"></a>
-- per person bill & tip with fits
+We will now look for any relationships between the tip or total bill amounts and the dining party size. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases. The tip also increases as party size increases but I did not perform any regression on that data. Instead I decided to look at the total bill or tip *per person*? For this, two new columns are added to the data set:
+- tpp or tip per person = tip / size
+- bpp or bill per person = total bill / size
+
+Pandas **groupby()** is then used to calculate the average tip or bill per person for each party size. Be aware that we don't have a lot of data for party sizes of 1, 5, or 6. Simple linear regression (using numpy.polyfit) was then performed on these average values. I wanted to see if the average bill (or tip) per person was linearly related to party size. The resulting plots and fit parameters are:
+
+![OLSbpp](images/LSQbpp.png)
+
+Here, slope = -0.412130, intercept = 8.475404, R<sup>2</sup> = 0.653
+
+![OLStpp](images/LSQtpp.png)
+
+Here, slope = -0.125348, intercept = 1.533718, R<sup>2</sup> = 0.933
+
+Summary of findings:
+- The average bill per person decreases as party size increases.
+- The average tip per person also decreases as party size increases.
+- There is a very strong linear relationship (high R<sup>2</sup>) between the average tip per person and party size.
 
 ### 4.4 Next section <a name="sec4p4"></a>
 <!--ML predict classify-->
@@ -183,10 +200,10 @@ Others..brief discussion here.
 
 ## 6. Conclusions <a name="conclusion"></a>
 Main findings:
-1. one
-2. two
-3. three
-4. etc
+1. avg tip
+2. largest group
+3. reg
+4. pred
 
 ## 7. References <a name="references"></a>
 
