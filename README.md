@@ -30,9 +30,9 @@ https://github.com/elizabethdaly/data-analysis-project.git
     
 4. [Relationships between variables](#section4)
     1. [Visualize relationships between numerical variables with pairplot](#sec4p1)
-    2. [Investigate relationships between tip amount and the categorical variables](#sec4p2)
+    2. [Investigate relationships between tip amount and the other variables](#sec4p2)
     3. [Does the amount spent depend on party size?](#sec4p3)
-    4. [Next section](#sec4p4)
+    4. [Classification](#sec4p4)
     
 5. [Work done by other people on the Tips data set](#section5)
     
@@ -42,7 +42,7 @@ https://github.com/elizabethdaly/data-analysis-project.git
 
 ## 1. Introduction <a name="introduction"></a>
 - This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, scikit-learn, statsmodels, and SciPy. 
-- The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook from the folder containing the file. Jupyter notebook comes as part of the Anaconda distribution of Python (as do the other packages listed above). 
+- The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook in the folder containing the file. Use the command **Jupyter notebook** on the command line. Jupyter notebook comes as part of the Anaconda distribution of Python (as do the other packages listed above). 
 - Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. 
 - The Tips data set is included in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. It is located in the **data** subdirectory.
 - All images intended for inclusion in this README are located in the **images** subdirectory of this repository.
@@ -59,7 +59,7 @@ I often use sites such as Medium.com to see how other people have investigated d
 ![head](images/head.JPG)
 
 ### 2.2 Descriptive statistics <a name="sec2p2"></a>
-Pandas **describe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the *Case Study 1: Restaurant Tipping* report also below. So it seems like a sensible step to take. The output of pandas **describe(include="all")** is shown below. Here, all columns of the DataFrame are included in the analysis.
+Pandas **describe()** can provide a quick summary of the data set as outlined in the notebook. However, without looking at the data in more detail, we cannot yet state what we think a typical diner is. What I mean is, just because most of the diners are male, smokers, and eating dinner on Saturday when we consider one variable at a time, that doesn't mean that all of these conditions are met simultaneously. In the notebook I calculate the tip as a fraction of the total bill as I think it's a measure of tip size that we are more familiar with. That is also done in the https://devarea.com/ reference below, in Wes McKinney's book when he is using the Tips data set as an example, and in the *Case Study 1: Restaurant Tipping* report, also below. So it seems like a sensible step to take. The output of pandas **describe(include="all")** is shown below. Here, all columns of the DataFrame are included in the analysis.
 
 ![describeAll](images/describeAll.JPG)
 
@@ -163,13 +163,43 @@ As the average total bill in this restaurant is just less than $20 and the maxim
 We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the data set.   
 
 ### 4.1 Visualize relationships between numerical variables with pairplot <a name="sec4p1"></a>
-The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories are not overlapping. We don't see much evidence for that here - unlike say in the iris data set. 
+The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories do not overlap too much. We don't see much evidence for that in the pairplot - unlike say in the iris data set - so I'll take it no further. 
 
-### 4.2 Investigate relationships between tip amount and the categorical variables <a name="sec4p2"></a>
-- Maybe pivot_table()
+### 4.2 Investigate relationships between tip amount and the other variables <a name="sec4p2"></a>
+I next used the **pivot_table()** function to summarize the tip according to each of the other variables. I came across this function in Wes McKinney's data analysis book and in his "10 minutes to Pandas" video (both referenced below). So, instead of looking at the average tip for the entire data set, we can see what the average tip is for all combinations of the sex and smoker categorical variables, for example. The default aggregation function is **mean** and I also use **count** to measure sample sizes. **max()** and **min()** are used to find the biggest and smallest values returned from pivot_table.
+
+**4.2.1 sex, smoker, and size**
+The output of pivot_table for average tip summarized against these three variables looks like:
+
+![PT_SexSmokerSize](images/PT_SexSmokerSize.JPG)
+
+Using the count function with pivot_table returns:
+
+![PTcount_SexSmokerSize](images/PTcount_SexSmokerSize.JPG)
+
+From this part of the notebook we can say that:
+- The largest average tip is left by male non-smokers in a party of 6 (mean = $5.85 , count = 2).
+- The lowest average tip is left by female smokers dining alone (mean = $1.00 , count = 1).
+- The largest group is male non-smokers in a party of 2 (mean = $2.55, count = 57).
+
+**4.2.1 sex, smoker, and day**
+We then used a pivot_table to calculate averages of tip over sex, smoker and day variables. I won't include the table itself, just the main results we are interested in, namely:
+- The largest average tip is left by male smokers on Sundays (mean = $3.52 , count = 15).
+- The lowest average tip is left by female non-smokers on Thursdays (mean =$2.46V, count = 25).
+- The largest group is male non-smokers on Sundays (mean = $3.12, count = 43).
+
+**4.2.1 sex, smoker, day, time and size**
+Rather than continuing on trying to find meaningful combinations of variables to use, I finally realised that I could make a pivot table summarizing tip averages over five other variables. The table is huge and not easy to read, but the main findings are:
+- The highest average tip comes from male non-smokers at lunch on Thursday in a party of six (mean = $6.70 , count = 1).
+- The lowest average tip is left by female smokers (and non-smokers) dining alone at dinner on Saturdays (mean = $1.00 , count = 1 each).
+- The largest group is male, non-smokers, dining with one other person at dinner on Sundays (mean = $2.59, count = 22). The average tip left by this group is very similar to the average tip for the whole data set, $2.99.
 
 ### 4.3 Does the amount spent depend on party size? <a name="sec4p3"></a>
-We will now look for any relationships between the tip or total bill amounts and the dining party size. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases. The tip also increases as party size increases but I did not perform any regression on that data. Instead I decided to look at the total bill or tip *per person*? For this, two new columns are added to the data set:
+We will now look for any relationships between the tip or total bill amounts and the dining party size. Below is a plot of the total bill versus party size, with data clumped along the y axis at each party size integer value. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases. 
+
+![TotalBill_size](images/TotalBill_Size.png)
+
+The tip also increases as party size increases but I did not perform any regression on that data. Instead I decided to look at the total bill or tip *per person*. For this, two new columns are added to the data set:
 - tpp or tip per person = tip / size
 - bpp or bill per person = total bill / size
 
@@ -177,21 +207,22 @@ Pandas **groupby()** is then used to calculate the average tip or bill per perso
 
 ![OLSbpp](images/LSQbpp.png)
 
-Here, slope = -0.412130, intercept = 8.475404, R<sup>2</sup> = 0.653
+Slope = -0.412130, intercept = 8.475404, R<sup>2</sup> = 0.653
 
 ![OLStpp](images/LSQtpp.png)
 
-Here, slope = -0.125348, intercept = 1.533718, R<sup>2</sup> = 0.933
+Slope = -0.125348, intercept = 1.533718, R<sup>2</sup> = 0.933
 
 Summary of findings:
 - The average bill per person decreases as party size increases.
+- There is a good linear relationship (high R<sup>2</sup>) between the average bill per person and party size.
 - The average tip per person also decreases as party size increases.
 - There is a very strong linear relationship (high R<sup>2</sup>) between the average tip per person and party size.
+- In conclusion, larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group.
 
-### 4.4 Next section <a name="sec4p4"></a>
-<!--ML predict classify-->
+### 4.4 Classification <a name="sec4p4"></a>
+The last thing we will do is see if we can predict any of the categories using some machine learning. For this part of the notebook I used ...
 
-<!--Questions-->
 
 ## 5. Work done by other people on the Tips data set <a name="section5"></a>
 The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report (indeed I don't know what application was used to perform the analysis), but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. 
@@ -203,7 +234,8 @@ Main findings:
 1. avg tip
 2. largest group
 3. reg
-4. pred
+4. larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group.
+5. pred
 
 ## 7. References <a name="references"></a>
 
