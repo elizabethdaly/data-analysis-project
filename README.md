@@ -168,7 +168,8 @@ The Seaborn **pairplot** function plots pairwise relationships in a data set. It
 ### 4.2 Investigate relationships between tip amount and the other variables <a name="sec4p2"></a>
 I next used the **pivot_table()** function to summarize the tip according to each of the other variables. I came across this function in Wes McKinney's data analysis book and in his "10 minutes to Pandas" video (both referenced below). So, instead of looking at the average tip for the entire data set, we can see what the average tip is for all combinations of the sex and smoker categorical variables, for example. The default aggregation function is **mean** and I also use **count** to measure sample sizes. **max()** and **min()** are used to find the biggest and smallest values returned from pivot_table.
 
-**4.2.1 sex, smoker, and size**
+#### 4.2.1 sex, smoker, and size
+
 The output of pivot_table for average tip summarized against these three variables looks like:
 
 ![PT_SexSmokerSize](images/PT_SexSmokerSize.JPG)
@@ -182,20 +183,22 @@ From this part of the notebook we can say that:
 - The lowest average tip is left by female smokers dining alone (mean = $1.00 , count = 1).
 - The largest group is male non-smokers in a party of 2 (mean = $2.55, count = 57).
 
-**4.2.1 sex, smoker, and day**
-We then used a pivot_table to calculate averages of tip over sex, smoker and day variables. I won't include the table itself, just the main results we are interested in, namely:
+#### 4.2.1 sex, smoker, and day
+
+We then used a pivot_table to calculate averages of tip over sex, smoker and day variables. I won't include the table itself here, just the main results we are interested in, namely:
 - The largest average tip is left by male smokers on Sundays (mean = $3.52 , count = 15).
-- The lowest average tip is left by female non-smokers on Thursdays (mean =$2.46V, count = 25).
+- The lowest average tip is left by female non-smokers on Thursdays (mean =$2.46, count = 25).
 - The largest group is male non-smokers on Sundays (mean = $3.12, count = 43).
 
-**4.2.1 sex, smoker, day, time and size**
+#### 4.2.1 sex, smoker, day, time and size
+
 Rather than continuing on trying to find meaningful combinations of variables to use, I finally realised that I could make a pivot table summarizing tip averages over five other variables. The table is huge and not easy to read, but the main findings are:
 - The highest average tip comes from male non-smokers at lunch on Thursday in a party of six (mean = $6.70 , count = 1).
 - The lowest average tip is left by female smokers (and non-smokers) dining alone at dinner on Saturdays (mean = $1.00 , count = 1 each).
 - The largest group is male, non-smokers, dining with one other person at dinner on Sundays (mean = $2.59, count = 22). The average tip left by this group is very similar to the average tip for the whole data set, $2.99.
 
 ### 4.3 Does the amount spent depend on party size? <a name="sec4p3"></a>
-We will now look for any relationships between the tip or total bill amounts and the dining party size. Below is a plot of the total bill versus party size, with data clumped along the y axis at each party size integer value. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases. 
+We will now look for any relationships between the tip or total bill amounts and the dining party size. Below is a plot of the total bill versus party size, with data clumped along the y axis at each party size integer value. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases, as you would kind of expect. 
 
 ![TotalBill_size](images/TotalBill_Size.png)
 
@@ -230,12 +233,19 @@ Regression using all cat vars? If time.
 Others..brief discussion here.
 
 ## 6. Conclusions <a name="conclusion"></a>
-Main findings:
-1. avg tip
-2. largest group
-3. reg
-4. larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group.
-5. pred
+Main findings of this analysis:
+1. Average tip =, miniumum = , maximum = .
+2. Average total bill =, miniumum = , maximum = .
+3. Average fractional tip =, miniumum = , maximum = .
+4. x% of the diners are smokers
+5. x% are male
+6. x% on Day
+7. x% at Time
+8. x% in size.
+9. Largest group represented in the data set is: avg tip = for full set roughly.
+10. There is a linear relationship between tip and total bill: 
+11. Larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group. The same applies to the tip amount.
+12. Classification results.
 
 ## 7. References <a name="references"></a>
 
