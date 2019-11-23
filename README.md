@@ -224,28 +224,33 @@ Summary of findings:
 - In conclusion, larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group.
 
 ### 4.4 Classification <a name="sec4p4"></a>
-The last thing we will do is see if we can predict any of the categories using some machine learning. For this part of the notebook I used ...
+The last thing we will do is see if we can use any of the numerical variables to predict some of the categorical ones. This is called classification, as we are attempting to predict the value of a discrete categorical variable like sex, smoker, day or time for this particular data set. The categorical variables correspond to classes; we wish to predict, for example, the value of the time class - is it lunch or dinner? For this part of the notebook we use scikit-learn, a machine learning package for Python. 
 
+### K-nearest neighbours (knn) classification
+The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn document states "Classification is computed from a simple majority vote of the nearest neighbors of each point: a query point is assigned the data class which has the most representatives within the nearest neighbors of the point." It is an example of supervised learning because we train the classifier with data where the outputs that correspond to certain inputs are already known. The training data is a random  selection of observations form the data set. The testing data consists of the remaining observations. Performance of the  classifier is quantified by measuring how many of the outputs in the testing data are predicted correctly. In the notebook we use the numerical variables tip, total bill, and size to make predictions of time - lunch or dinner.
+- The knn classifier for 5 nearest neighbours has a 69% success rate at predicting time over 100 runs. It's much better than just guessing.
+- Considering only non-smokers reduces the performance slightly, to 65%.
+- The actual numbers change a little each time the notebook is run, but the full data set has always performed better.
 
 ## 5. Work done by other people on the Tips data set <a name="section5"></a>
-The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report (indeed I don't know what application was used to perform the analysis), but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. 
-Regression using all cat vars? If time.
-Others..brief discussion here.
+The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below. It was actually difficult to find something new to do with this data set, but I haven't come across an analysis like I did in section 4.3, where I looked at tip and total bill per person. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report. Indeed, I don't know what application was used to perform the analysis, but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. In that analysis, the tip rate (or fractional tip) is fitted against sex, smoker, time, size and day (but not Sunday for some reason). They conclude that size is the most important predictor of tip rate, followed by Saturday data. They then fit tip rate against size alone; and conclude that the tip rate drops by about 1% for each additional diner. 
 
-## 6. Conclusions <a name="conclusion"></a>
+## 6. Conclusion <a name="conclusion"></a>
 Main findings of this analysis:
-1. Average tip =, miniumum = , maximum = .
-2. Average total bill =, miniumum = , maximum = .
-3. Average fractional tip =, miniumum = , maximum = .
-4. x% of the diners are smokers
-5. x% are male
-6. x% on Day
-7. x% at Time
-8. x% in size.
-9. Largest group represented in the data set is: avg tip = for full set roughly.
-10. There is a linear relationship between tip and total bill: 
+1. Average tip = $2.99, minimum = $1, maximum = $10.
+2. Average total bill = $19.79, minimum = $3.07, maximum = $50.81.
+3. Average fractional tip = 0.16, minimum = 0.04, maximum = 0.71.
+4. 151 of the 244 observations concern non-smokers.
+5. 157 of the 244 observations concern males.
+6. 87 of the 244 observations relate to Saturday.
+7. 176 of the 244 observations relate to dinner.
+8. 156 of the 244 observations concern party size of two.
+9. The largest group represented in the data set is: male, non-smokers, dining with one other person at dinner on Sundays. There are 22 of them. The average tip left by this group is $2.59, very similar to the average tip for the whole data set, $2.99. 
+10. There is a linear relationship between tip and total bill: tip = 0.11 (total_bill) + 0.92
 11. Larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group. The same applies to the tip amount.
-12. Classification results.
+12. A k-nearest neighbours classifier was used to predict time from tip, total bill and size inputs. The classifier predicted the time (lunch or dinner) correctly about 69% of the time. Considering only data from non-smokers reduced the classifier performance by a few percent.
+
+In conclusion, ...
 
 ## 7. References <a name="references"></a>
 
@@ -275,88 +280,94 @@ https://github.com/mwaskom/seaborn-data/blob/master/tips.csv
 - [8] Description of what is contained in the tips set
 https://www.kaggle.com/ranjeetjain3/seaborn-tips-data set
 
-- [] scikit-learn: Machine Learning in Python
+- [9] scikit-learn: Machine Learning in Python
 https://scikit-learn.org/stable/index.html
 
-- [] StatsModels: Statistics in Python
+- [10] StatsModels: Statistics in Python
 https://www.statsmodels.org/stable/index.html
 
-- [] scipy.stats : Statistics with SciPy
+- [11] scipy.stats : Statistics with SciPy
 https://docs.scipy.org/doc/scipy/reference/tutorial/stats.html
 
 **Exploratory data analysis:**
 
-- [] Exploratory Statistical Data Analysis with a Real data set using Pandas
+- [12] Exploratory Statistical Data Analysis with a Real data set using Pandas
 https://towardsdatascience.com/exploratory-statistical-data-analysis-with-a-real-data set-using-pandas-208007798b92
 
-- [9] How to investigate a data set with Python
+- [13] How to investigate a data set with Python
 https://towardsdatascience.com/hitchhikers-guide-to-exploratory-data-analysis-6e8d896d3f7e
 
-- [10] Data analysis with Python
+- [14] Data analysis with Python
 https://medium.com/@onpillow/01-investigate-tmdb-movie-data set-python-data-analysis-project-part-1-data-wrangling-3d2b55ea7714
 
-- [11] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
+- [15] Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython. 
 Wes McKinney. ISBN-13: 978-1491957660 ISBN-10: 1491957662
 
-- [12] Pandas In 10 Minutes || Wes McKinney
+- [16] Pandas In 10 Minutes || Wes McKinney
 https://www.youtube.com/watch?v=1MGCD8SQp3k
 
-- [13] Good description of quartiles on Seaborn plots
+- [17] Good description of quartiles on Seaborn plots
 https://towardsdatascience.com/analyze-the-data-through-data-visualization-using-seaborn-255e1cd3948e
 
 **Regression:**
 
-- [14] Ordinary Least Squares in statsmodels
+- [19] Ordinary Least Squares in statsmodels
 https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
 
-- [15] Generalized Linear Models in scikit-learn
+- [19] Generalized Linear Models in scikit-learn
 https://scikit-learn.org/stable/modules/linear_model.html#ordinary-least-squares
 
-- [16] How to run Linear regression in Python scikit-Learn
+- [20] How to run Linear regression in Python scikit-Learn
 https://bigdata-madesimple.com/how-to-run-linear-regression-in-python-scikit-learn/
 
-- [17] A beginner’s guide to Linear Regression in Python with Scikit-Learn
+- [21] A beginner’s guide to Linear Regression in Python with Scikit-Learn
 https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f
 
-- [18] Regression Analysis: How Do I Interpret R-squared and Assess the Goodness-of-Fit?
+- [22] Regression Analysis: How Do I Interpret R-squared and Assess the Goodness-of-Fit?
 https://blog.minitab.com/blog/adventures-in-statistics-2/regression-analysis-how-do-i-interpret-r-squared-and-assess-the-goodness-of-fit
 
-- [] Python and R Tips To Learn Data Science: Pearson and Spearman Correlation in Python
+- [23] Python and R Tips To Learn Data Science: Pearson and Spearman Correlation in Python
 https://cmdlinetips.com/2019/08/how-to-compute-pearson-and-spearman-correlation-in-python/
 
 **Classification:**
 
--[] K-nearest Neighbors (KNN) Classification Model
+- [24] K-nearest Neighbors (KNN) Classification Model
 https://www.ritchieng.com/machine-learning-k-nearest-neighbors-knn/
+
+- [25] Supervised and Unsupervised Machine Learning Algorithms
+https://machinelearningmastery.com/supervised-and-unsupervised-machine-learning-algorithms/
+
+- [26] Cross-Validation
+https://www.ritchieng.com/machine-learning-cross-validation/
 
 **References directly relating to Tips:**
 
-- [19] Tips data set in PYTHON MACHINE LEARNING EXAMPLE – LINEAR REGRESSION
+- [27] Tips data set in PYTHON MACHINE LEARNING EXAMPLE – LINEAR REGRESSION
 https://devarea.com/python-machine-learning-example-linear-regression/#.XbbfgOj7Q2w
 
-- [] Tips analysis using Seaborn: Visualizing statistical relationships
+- [28] Tips analysis using Seaborn: Visualizing statistical relationships
 https://seaborn.pydata.org/tutorial/relational.html#relational-tutorial
 
-- [] Tips analysis using Seaborn: Plotting with categorical data
+- [29] Tips analysis using Seaborn: Plotting with categorical data
 https://seaborn.pydata.org/tutorial/categorical.html#categorical-tutorial
 
-- [] Tips analysis using Seaborn: Visualizing linear relationships
+- [30] Tips analysis using Seaborn: Visualizing linear relationships
 https://seaborn.pydata.org/tutorial/regression.html#regression-tutorial
 
-- [] Tips analysis using Seaborn: Building structured multi-plot grids
+- [31] Tips analysis using Seaborn: Building structured multi-plot grids
 https://seaborn.pydata.org/tutorial/axis_grids.html#grid-tutorial
 
-- [20] STAT 503 Case Study 1: Restaurant Tipping (Author unknown)
+- [32] STAT 503 Case Study 1: Restaurant Tipping (Author unknown)
 https://dicook.public.iastate.edu/stat503/05/cs-tips2.pdf
 
-- [] Interactive analytics and predictions on Restaurant tips
+- [33] Interactive analytics and predictions on Restaurant tips
 https://medium.com/@valentinaalto/interactive-analytics-and-predictions-on-restaurant-tips-94f21f537de8
 
-- [] Seaborn again: Python Data Visualisation using Seaborn 
+- [34] Seaborn again: Python Data Visualisation using Seaborn 
 https://grindsquare.co.za/python-data-visualisation-using-seaborn/
 
-- [] Excerpt from the Python Data Science Handbook by Jake VanderPlas; Jupyter notebooks are available on GitHub.
+- [35] Excerpt from the Python Data Science Handbook by Jake VanderPlas; Jupyter notebooks are available on GitHub.
 https://jakevdp.github.io/PythonDataScienceHandbook/04.14-visualization-with-seaborn.html
 
-- [] Interactive analytics and predictions on Restaurant tips
+- [36] Interactive analytics and predictions on Restaurant tips
 https://datasciencechalktalk.com/2019/11/03/interactive-analytics-and-predictions-on-restaurant-tips/
