@@ -41,8 +41,8 @@ https://github.com/elizabethdaly/data-analysis-project.git
 9. [References](#references)
 
 ## 1. Introduction <a name="introduction"></a>
-- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, scikit-learn, statsmodels, and SciPy. 
-- The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook in the folder containing the file. Use the command **Jupyter notebook** on the command line. Jupyter notebook comes as part of the Anaconda distribution of Python (as do the other packages listed above). 
+- This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, scikit-learn, statsmodels, and SciPy. These packages all come as part of the Anaconda distribution of Python.
+- The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook in the folder containing the file. Use the command **Jupyter notebook** on the command line. 
 - Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. 
 - The Tips data set is included in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. It is located in the **data** subdirectory.
 - All images intended for inclusion in this README are located in the **images** subdirectory of this repository.
@@ -65,14 +65,16 @@ Pandas **describe()** can provide a quick summary of the data set as outlined in
 
 From this summary we can say that:
 1. The average tip (as a fraction of total bill) is about 16%.
-2. There is an outlier in the data set: a male smoker at dinner on Sunday in party size of 2, left a 71% tip. 
-3. The lowest tip rate was also left by a male smoker at dinner in a party size of 2, but on Saturday; 3.6%. 
-3. The 50th percentile is very similar to the mean, so the mean tip is a typical value in the data set.
-4. More males than females paid the bill, 157 of the 244 observations.
-5. More non-smokers than smokers paid the bill, 151 of the 244 observations.
-6. Most of the observations relate to Saturday, 87 of the 244.
-7. Most of the observations relate to dinner, 176 of the 244.
-8. Party size varied from 1 to 6, with the average size being 2.5.
+2. The 50th percentile is very similar to the mean, so the mean tip is a typical value in the data set.
+3. More males than females paid the bill, 157 of the 244 observations.
+4. More non-smokers than smokers paid the bill, 151 of the 244 observations.
+5. Most of the observations relate to Saturday, 87 of the 244.
+6. Most of the observations relate to dinner, 176 of the 244.
+7. Party size varied from 1 to 6, with the average size being 2.5.
+
+I used pandas **iloc** to identify the highest and lowest tip rates:
+- The highest tip rate from a male smoker at dinner on Sunday in party size of 2, who left a 71% tip.
+- The lowest tip rate was also left by a male smoker at dinner in a party size of 2, but on Saturday; 3.6%.
 
 This is what a plot of tip versus total bill looks like. Here, data from each day is plotted in a different colour, but the same could also be done for any of the other categorical variables sex, smoker, and time.
 
@@ -88,7 +90,7 @@ We can use Pandas **groupby()** to get more detailed information about tipping b
 6. The lowest average tip (as a fraction of total bill) is left at dinner on Saturdays.
 
 ### 2.4 Plots to summarize some statistics <a name="sec2p4"></a>
-The following plots summarize this information graphically. So far it looks like the best time to be waiter in this restaurant is at lunch on Fridays if one is interested in the highest fractional tip. The best type of diner to serve is a female smoker. I'm not yet sure how the day and time variables are related to sex and smoker ones.
+The following plots summarize this information graphically. So far it looks like the best time to be waiter in this restaurant is at lunch on Fridays if one is interested in the highest fractional tip. The best type of diner to serve is a female smoker. At this point of the analysis, I am not yet sure how the day and time variables are related to sex and smoker ones.
 
 ![barSmokerSex](images/barSmokerSex.png)
 
@@ -106,7 +108,7 @@ where
 - c is the y intercept
 
 ### 3.1 Regression in Seaborn <a name="sec3p1"></a>
-In the notebook we first use Seaborn to visualize any linear relationship between our two variables of interest using **regplot** and **lmplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. Here we plot the best straight lines through smoker and non-smoker data points, as found by Seaborn. We will look at these categories again later on in this section.
+In the notebook we first use Seaborn to visualize any linear relationship between our two variables of interest using **regplot** and **lmplot**. This does not give us any fitting parameters such as the slope and intercept of the linear fit, or any metrics to assess the quality of the fit, but it's a good start. Here we plot the best straight lines through smoker and non-smoker data points, as found by Seaborn. We will look at these categories again later on in this section. For now we can say that the best straight lines through the data points have different slopes for smokers and non-smoker. The shaded regions represent the 95% confidence levels, and they don't even overlap in this plot. 
 
 ![SeabornFit](images/lmplotSmoke.png)
 
@@ -116,12 +118,12 @@ We perform a simple linear regression analysis of the data as per the week 9 lec
 - intercept = 0.920
 - R<sup>2</sup> = 0.457
 
-So, a linear relationship does exist between the total bill and the tip amount, but in my opinion, it's not a very strong one. When dealing with scientific data in the past, I would be looking for much higher R<sup>2</sup> values. I'll discuss that more below.
+So, a linear relationship does exist between the total bill and the tip amount, but in my opinion, it's not a very strong one. When dealing with scientific data in the past, I would be looking for much higher R<sup>2</sup> values. I'll discuss that more below. The best slope here corresponds to approximately a 10% tip, and note that the intercept is not zero; suggesting that the minimum tip is about $1. One can see lines of data points representing tip of $1, $2 and $3. This suggests that lots of diners round their tips to the nearest $. 
 
 ![SimpleLinReg](images/LSQalldata.png)
 
 ### 3.3 Regression with Statsmodels <a name="sec3p3"></a>
-We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit. For each data point, square the difference between it and the best fit, and sum all of these residuals. We modify the model slightly to include a y intercept. The model returns a report containing statistical information, but for this project we are only interested in the slope, intercept, and value of R<sup>2</sup>.
+We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit: for each data point, square the difference between it and the best fit, and sum all of these residuals. We modify the model slightly to include a y intercept. The model returns a report containing statistical information, but for this project we are only interested in the slope, intercept, and value of R<sup>2</sup>.
 
 ### 3.4 Regression with scikit-learn <a name="sec3p4"></a>
 Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn.  This package is useful for making predictions using the data set, something we may get on to later. We use the scikit-learn LinearRegression model which performs OLS fitting.
@@ -163,7 +165,7 @@ As the average total bill in this restaurant is just less than $20 and the maxim
 We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the data set.   
 
 ### 4.1 Visualize relationships between numerical variables with pairplot <a name="sec4p1"></a>
-The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories do not overlap too much. We don't see much evidence for that in the pairplot - unlike say in the iris data set - so I'll take it no further. Below is the Seaborn pairplot for this data set.
+The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories do not overlap too much. We don't see much evidence for that in the pairplot - unlike say in the iris data set - so I'll take it no further. Below is a Seaborn pairplot for this data set.
 
 ![Pairplot](images/Pairplot.png)
 
@@ -200,7 +202,7 @@ Rather than continuing on trying to find meaningful combinations of variables to
 - The largest group is male, non-smokers, dining with one other person at dinner on Sundays (mean = $2.59, count = 22). The average tip left by this group is very similar to the average tip for the whole data set, $2.99.
 
 ### 4.3 Does the amount spent depend on party size? <a name="sec4p3"></a>
-We will now look for any relationships between the tip or total bill amounts and the dining party size. Below is a plot of the total bill versus party size, with data clumped along the y axis at each party size integer value. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases, as you would kind of expect. 
+We will now look for any relationships between the tip or total bill amounts and the dining party size. Below is a plot of the total bill versus party size, with data clumped along the y axis at each party size integer value. We first calculate the correlation matrix and resulting R<sup>2</sup> for total bill and party size;  R<sup>2</sup> = 0.358 so there is a weak linear relationship there. The total bill does increase as party size increases, as you would expect. 
 
 ![TotalBill_size](images/TotalBill_Size.png)
 
@@ -224,21 +226,23 @@ Summary of findings:
 - The average tip per person also decreases as party size increases.
 - There is a very strong linear relationship (high R<sup>2</sup>) between the average tip per person and party size.
 - In conclusion, larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group.
+- Alternatively, the reduction in bill and tip per person could be happening because these larger parties include children, and children's meals are usually less expensive than adult meals.
 
 ### 4.4 Classification <a name="sec4p4"></a>
 The last thing we will do is see if we can use any of the numerical variables to predict some of the categorical ones. This is called classification, as we are attempting to predict the value of a discrete categorical variable like sex, smoker, day or time for this particular data set. The categorical variables correspond to classes; we wish to predict, for example, the value of the time class - is it lunch or dinner? For this part of the notebook we use scikit-learn, a machine learning package for Python. 
 
 ### K-nearest neighbours (knn) classification
-The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn documentation states, "Classification is computed from a simple majority vote of the nearest neighbors of each point: a query point is assigned the data class which has the most representatives within the nearest neighbors of the point." It is an example of supervised learning because we train the classifier with data where the outputs that correspond to certain inputs are already known. The training data is a random  selection of observations from the data set. The testing data consists of the remaining observations. Performance of the  classifier is quantified by measuring how many of the outputs in the testing data are predicted correctly. In the notebook we use the numerical variables tip, total bill, and size to make predictions of time - lunch or dinner.
+The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn documentation states, "Classification is computed from a simple majority vote of the nearest neighbors of each point: a query point is assigned the data class which has the most representatives within the nearest neighbors of the point." It is an example of supervised learning because we train the classifier with data where the outputs that correspond to certain inputs are already known. The training data is a random  selection of observations from the data set. The testing data consists of the remaining observations. Performance of the classifier is quantified by measuring how many of the outputs in the testing data it predicts correctly. In the notebook we use the numerical variables tip, total bill, and size to make predictions of time - lunch or dinner. The classification is performed using the full data set and also again for a subset of the data set that includes only non-smokers.
 - The knn classifier for 5 nearest neighbours has a 69% success rate at predicting time over 100 runs. It's much better than just guessing.
 - Considering only non-smokers reduces the performance slightly, to 65%.
-- The actual numbers change a little each time the notebook is run, but the full data set has always performed better.
+- The actual numbers change a little each time the notebook is run, but the full data set has always performed better than the subset.
 
 ## 5. Work done by other people on the Tips data set <a name="section5"></a>
-The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. These and some other examples are listed in the references below. It was actually difficult to find something new to do with this data set, but I haven't come across an analysis like I did in section 4.3, where I looked at tip and total bill per person. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report. Indeed, I don't know what application was used to perform the analysis, but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. In that analysis, the tip rate (or fractional tip) is fitted against sex, smoker, time, size and day (but not Sunday for some reason). They conclude that size is the most important predictor of tip rate, followed by Saturday data. They then fit tip rate against size alone; and conclude that the tip rate drops by about 1% for each additional diner. 
+The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. These and some other examples are listed in the references below. It was actually difficult to find something new to do with this data set, but I haven't come across an analysis like I did in section 4.3, where I looked at tip and total bill per person. 
+I found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report. Indeed, I don't know what application was used to perform the analysis, but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. In that analysis, the tip rate (or fractional tip) is fitted against sex, smoker, time, size and day (but not Sunday for some reason). They conclude that size is the most important predictor of tip rate, followed by Saturday data. They then fit tip rate against size alone; and conclude that the tip rate drops by about 1% for each additional diner. 
 
 ## 6. Conclusion <a name="conclusion"></a>
-Main findings of this analysis:
+The main findings of this analysis are:
 1. Average tip = $2.99, minimum = $1, maximum = $10.
 2. Average total bill = $19.79, minimum = $3.07, maximum = $50.81.
 3. Average fractional tip = 0.16, minimum = 0.04, maximum = 0.71.
@@ -251,8 +255,6 @@ Main findings of this analysis:
 10. There is a linear relationship between tip and total bill: tip = 0.11 (total_bill) + 0.92
 11. Larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group. The same applies to the tip amount. The tip per person versus size is fit really well by a linear model. 
 12. A k-nearest neighbours classifier was used to predict time from tip, total bill and size inputs. The classifier predicted the time (lunch or dinner) correctly about 69% of the time. Considering only data from non-smokers reduced the classifier performance by a few percent.
-
-In conclusion, ...
 
 ## 7. References <a name="references"></a>
 
@@ -313,7 +315,7 @@ https://towardsdatascience.com/analyze-the-data-through-data-visualization-using
 
 **Regression:**
 
-- [19] Ordinary Least Squares in statsmodels
+- [18] Ordinary Least Squares in statsmodels
 https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html
 
 - [19] Generalized Linear Models in scikit-learn
