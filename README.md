@@ -239,6 +239,7 @@ The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn d
 
 ## 5. Work done by other people on the Tips data set <a name="section5"></a>
 The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. These and some other examples are listed in the references below. It was actually difficult to find something new to do with this data set, but I haven't come across an analysis like I did in section 4.3, where I looked at tip and total bill per person. 
+
 I found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report. Indeed, I don't know what application was used to perform the analysis, but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. In that analysis, the tip rate (or fractional tip) is fitted against sex, smoker, time, size and day (but not Sunday for some reason). They conclude that size is the most important predictor of tip rate, followed by Saturday data. They then fit tip rate against size alone; and conclude that the tip rate drops by about 1% for each additional diner. 
 
 ## 6. Conclusion <a name="conclusion"></a>
