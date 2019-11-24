@@ -163,12 +163,14 @@ As the average total bill in this restaurant is just less than $20 and the maxim
 We have investigated if the tip amount is related to the total bill, and we have explored a little how that relationship is different depending on the subsets of data used. We now want to analyse other relationships between the variables of the data set.   
 
 ### 4.1 Visualize relationships between numerical variables with pairplot <a name="sec4p1"></a>
-The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories do not overlap too much. We don't see much evidence for that in the pairplot - unlike say in the iris data set - so I'll take it no further. 
+The Seaborn **pairplot** function plots pairwise relationships in a data set. It generates a grid of scatterplots of each numeric variable plotted against all the others, and a histogram of values when a variable is plotted against itself. The *hue* keyword can be used to differentiate between the different categorical variables on each subplot. Using pairplot on the tips data set suggests a possibility of a linear relationship between tip and total bill. Luckily, that is the relationship we were asked to investigate in the previous section. A variable could be used to separate categories if the histograms for different categories do not overlap too much. We don't see much evidence for that in the pairplot - unlike say in the iris data set - so I'll take it no further. Below is the Seaborn pairplot for this data set.
+
+![Pairplot](images/Pairplot.png)
 
 ### 4.2 Investigate relationships between tip amount and the other variables <a name="sec4p2"></a>
 I next used the **pivot_table()** function to summarize the tip according to each of the other variables. I came across this function in Wes McKinney's data analysis book and in his "10 minutes to Pandas" video (both referenced below). So, instead of looking at the average tip for the entire data set, we can see what the average tip is for all combinations of the sex and smoker categorical variables, for example. The default aggregation function is **mean** and I also use **count** to measure sample sizes. **max()** and **min()** are used to find the biggest and smallest values returned from pivot_table.
 
-#### 4.2.1 sex, smoker, and size
+#### 4.2.1 Tip vs sex, smoker, and size
 
 The output of pivot_table for average tip summarized against these three variables looks like:
 
@@ -183,14 +185,14 @@ From this part of the notebook we can say that:
 - The lowest average tip is left by female smokers dining alone (mean = $1.00 , count = 1).
 - The largest group is male non-smokers in a party of 2 (mean = $2.55, count = 57).
 
-#### 4.2.1 sex, smoker, and day
+#### 4.2.2 Tip vs sex, smoker, and day
 
 We then used a pivot_table to calculate averages of tip over sex, smoker and day variables. I won't include the table itself here, just the main results we are interested in, namely:
 - The largest average tip is left by male smokers on Sundays (mean = $3.52 , count = 15).
 - The lowest average tip is left by female non-smokers on Thursdays (mean =$2.46, count = 25).
 - The largest group is male non-smokers on Sundays (mean = $3.12, count = 43).
 
-#### 4.2.1 sex, smoker, day, time and size
+#### 4.2.3 Tip vs sex, smoker, day, time and size
 
 Rather than continuing on trying to find meaningful combinations of variables to use, I finally realised that I could make a pivot table summarizing tip averages over five other variables. The table is huge and not easy to read, but the main findings are:
 - The highest average tip comes from male non-smokers at lunch on Thursday in a party of six (mean = $6.70 , count = 1).
@@ -227,13 +229,13 @@ Summary of findings:
 The last thing we will do is see if we can use any of the numerical variables to predict some of the categorical ones. This is called classification, as we are attempting to predict the value of a discrete categorical variable like sex, smoker, day or time for this particular data set. The categorical variables correspond to classes; we wish to predict, for example, the value of the time class - is it lunch or dinner? For this part of the notebook we use scikit-learn, a machine learning package for Python. 
 
 ### K-nearest neighbours (knn) classification
-The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn document states "Classification is computed from a simple majority vote of the nearest neighbors of each point: a query point is assigned the data class which has the most representatives within the nearest neighbors of the point." It is an example of supervised learning because we train the classifier with data where the outputs that correspond to certain inputs are already known. The training data is a random  selection of observations form the data set. The testing data consists of the remaining observations. Performance of the  classifier is quantified by measuring how many of the outputs in the testing data are predicted correctly. In the notebook we use the numerical variables tip, total bill, and size to make predictions of time - lunch or dinner.
+The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn documentation states, "Classification is computed from a simple majority vote of the nearest neighbors of each point: a query point is assigned the data class which has the most representatives within the nearest neighbors of the point." It is an example of supervised learning because we train the classifier with data where the outputs that correspond to certain inputs are already known. The training data is a random  selection of observations from the data set. The testing data consists of the remaining observations. Performance of the  classifier is quantified by measuring how many of the outputs in the testing data are predicted correctly. In the notebook we use the numerical variables tip, total bill, and size to make predictions of time - lunch or dinner.
 - The knn classifier for 5 nearest neighbours has a 69% success rate at predicting time over 100 runs. It's much better than just guessing.
 - Considering only non-smokers reduces the performance slightly, to 65%.
 - The actual numbers change a little each time the notebook is run, but the full data set has always performed better.
 
 ## 5. Work done by other people on the Tips data set <a name="section5"></a>
-The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. Some examples are listed in the references below. It was actually difficult to find something new to do with this data set, but I haven't come across an analysis like I did in section 4.3, where I looked at tip and total bill per person. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report. Indeed, I don't know what application was used to perform the analysis, but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. In that analysis, the tip rate (or fractional tip) is fitted against sex, smoker, time, size and day (but not Sunday for some reason). They conclude that size is the most important predictor of tip rate, followed by Saturday data. They then fit tip rate against size alone; and conclude that the tip rate drops by about 1% for each additional diner. 
+The tips data set is often used to illustrate the capabilities of Seaborn, so it appears a lot in the documentation for that package. These and some other examples are listed in the references below. It was actually difficult to find something new to do with this data set, but I haven't come across an analysis like I did in section 4.3, where I looked at tip and total bill per person. I also found an anonymous report from Iowa State University on the tips data state which is referenced below. It seems to be a report for a statistics class but with a business bias. There is no code in the report. Indeed, I don't know what application was used to perform the analysis, but I'm guessing a pure statistics package as there is mention of t-values and p-values without explanation of what they are. In that analysis, the tip rate (or fractional tip) is fitted against sex, smoker, time, size and day (but not Sunday for some reason). They conclude that size is the most important predictor of tip rate, followed by Saturday data. They then fit tip rate against size alone; and conclude that the tip rate drops by about 1% for each additional diner. 
 
 ## 6. Conclusion <a name="conclusion"></a>
 Main findings of this analysis:
@@ -247,7 +249,7 @@ Main findings of this analysis:
 8. 156 of the 244 observations concern party size of two.
 9. The largest group represented in the data set is: male, non-smokers, dining with one other person at dinner on Sundays. There are 22 of them. The average tip left by this group is $2.59, very similar to the average tip for the whole data set, $2.99. 
 10. There is a linear relationship between tip and total bill: tip = 0.11 (total_bill) + 0.92
-11. Larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group. The same applies to the tip amount.
+11. Larger parties spend more money in total, but each person in the party spends less than if they were part of a smaller group. The same applies to the tip amount. The tip per person versus size is fit really well by a linear model. 
 12. A k-nearest neighbours classifier was used to predict time from tip, total bill and size inputs. The classifier predicted the time (lunch or dinner) correctly about 69% of the time. Considering only data from non-smokers reduced the classifier performance by a few percent.
 
 In conclusion, ...
