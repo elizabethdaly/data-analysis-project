@@ -44,7 +44,7 @@ https://github.com/elizabethdaly/data-analysis-project.git
 - This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, scikit-learn, statsmodels, and SciPy. These packages all come as part of the Anaconda distribution of Python.
 - The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook in the folder containing the file. Use the command **Jupyter notebook** on the command line. 
 - Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. 
-- The Tips data set is included in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. For the sake of completeness, I have downloaded the data set from the site referenced in the project instructions, and I include it in this repository as a csv file. It is located in the **data** subdirectory.
+- The Tips data set is included in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. I downloaded it to my local machine to a **data** subdirectory of this repository. My .gitignore file includes the line _data/_ so that the subdirectory is not commited. 
 - All images intended for inclusion in this README are located in the **images** subdirectory of this repository.
 - I have tried to structure the Jupyter notebook and this README so that they have corresponding sections. However, I do not wish to merely repeat here what has been stated in the notebook. I will endeavour to have this README summarize the work of the notebook and, hopefully, complement the analyses done there.
 
@@ -376,3 +376,6 @@ https://jakevdp.github.io/PythonDataScienceHandbook/04.14-visualization-with-sea
 
 - [36] Interactive analytics and predictions on Restaurant tips
 https://datasciencechalktalk.com/2019/11/03/interactive-analytics-and-predictions-on-restaurant-tips/
+
+- [37] atlassian.com: .gitignore
+https://www.atlassian.com/git/tutorials/saving-changes/gitignore#personal-git-ignore-rules
