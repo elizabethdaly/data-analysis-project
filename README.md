@@ -24,7 +24,7 @@ https://github.com/elizabethdaly/data-analysis-project.git
 3. [Regression](#section3)
     1. [Regression in Seaborn](#sec3p1)
     2. [Simple linear regression using polyfit](#sec3p2)
-    3. [Regression with Statsmodels](#sec3p3)
+    3. [Regression with statsmodels](#sec3p3)
     4. [Regression with scikit-learn](#sec3p4)
     5. [Linear regression on various subsets of the data](#sec3p5)
     
@@ -44,7 +44,7 @@ https://github.com/elizabethdaly/data-analysis-project.git
 - This README describes work done on the Tips data set for the Fundamentals of Data Analysis module assessment due 29 November 2019. Resources used include Python and associated packages Jupyter, matplotlib, Seaborn, scikit-learn, statsmodels, and SciPy. These packages all come as part of the Anaconda distribution of Python.
 - The analysis takes the form of a single Jupyter notebook of filename given above. To view this file, download it from this repository and start Jupyter notebook in the folder containing the file. Use the command **Jupyter notebook** on the command line. 
 - Alternatively, view a static version of the notebook (by providing its GitHub url) using Jupyter Nbviewer. 
-- The Tips data set is included in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. I downloaded it to my local machine to a **data** subdirectory of this repository. My .gitignore file includes the line _data/_ so that the subdirectory is not commited. 
+- The Tips data set is included in the Seaborn visualization library. It can be loaded provided one has access to the internet when running the notebook. I downloaded it to my local machine to a **data** subdirectory of this repository. My .gitignore file includes the line _data/_ so that the subdirectory is not committed. 
 - All images intended for inclusion in this README are located in the **images** subdirectory of this repository.
 - I have tried to structure the Jupyter notebook and this README so that they have corresponding sections. However, I do not wish to merely repeat here what has been stated in the notebook. I will endeavour to have this README summarize the work of the notebook and, hopefully, complement the analyses done there.
 
@@ -122,8 +122,8 @@ So, a linear relationship does exist between the total bill and the tip amount, 
 
 ![SimpleLinReg](images/LSQalldata.png)
 
-### 3.3 Regression with Statsmodels <a name="sec3p3"></a>
-We then move on to using two packages, Statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. Statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit: for each data point, square the difference between it and the best fit, and sum all of these residuals. We modify the model slightly to include a y intercept. The model returns a report containing statistical information, but for this project we are only interested in the slope, intercept, and value of R<sup>2</sup>.
+### 3.3 Regression with statsmodels <a name="sec3p3"></a>
+We then move on to using two packages, statsmodels and scikit-learn, to perform linear regression and return fitting parameters and metrics. statsmodels is a Python package for performing statistical analysis of data - we are interested in the OLS (Ordinary Least Squares) module for performing linear regression. OLS involves fitting a linear model with coefficients to minimize the residual sum of squares between the observed data points and the best fit: for each data point, square the difference between it and the best fit, and sum all of these residuals. We modify the model slightly to include a y intercept. The model returns a report containing statistical information, but for this project we are only interested in the slope, intercept, and value of R<sup>2</sup>.
 
 ### 3.4 Regression with scikit-learn <a name="sec3p4"></a>
 Scikit-learn is a machine learning package which can also perform OLS fitting. Strictly speaking there is no need to perform regression with both packages, but I do it once in the notebook and then stick to scikit-learn.  This package is useful for making predictions using the data set, something we may get on to later. We use the scikit-learn LinearRegression model which performs OLS fitting.
@@ -232,7 +232,7 @@ Summary of findings:
 The last thing we will do is see if we can use any of the numerical variables to predict some of the categorical ones. This is called classification, as we are attempting to predict the value of a discrete categorical variable like sex, smoker, day or time for this particular data set. The categorical variables correspond to classes; we wish to predict, for example, the value of the time class - is it lunch or dinner? For this part of the notebook we use scikit-learn, a machine learning package for Python. 
 
 ### K-nearest neighbours (knn) classification
-The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn documentation states, "Classification is computed from a simple majority vote of the nearest neighbors of each point: a query point is assigned the data class which has the most representatives within the nearest neighbors of the point." It is an example of supervised learning because we train the classifier with data where the outputs that correspond to certain inputs are already known. The training data is a random  selection of observations from the data set. The testing data consists of the remaining observations. Performance of the classifier is quantified by measuring how many of the outputs in the testing data it predicts correctly. In the notebook we use the numerical variables tip, total bill, and size to make predictions of time - lunch or dinner. The classification is performed using the full data set and also again for a subset of the data set that includes only non-smokers.
+The algorithm we use is called k-nearest neighbours (knn). As the scikit-learn documentation states, "Classification is computed from a simple majority vote of the nearest neighbours of each point: a query point is assigned the data class which has the most representatives within the nearest neighbours of the point." It is an example of supervised learning because we train the classifier with data where the outputs that correspond to certain inputs are already known. The training data is a random  selection of observations from the data set. The testing data consists of the remaining observations. Performance of the classifier is quantified by measuring how many of the outputs in the testing data it predicts correctly. In the notebook we use the numerical variables tip, total bill, and size to make predictions of time - lunch or dinner. The classification is performed using the full data set and also again for a subset of the data set that includes only non-smokers.
 - The knn classifier for 5 nearest neighbours has a 69% success rate at predicting time over 100 runs. It's much better than just guessing.
 - Considering only non-smokers reduces the performance slightly, to 65%.
 - The actual numbers change a little each time the notebook is run, but the full data set has always performed better than the subset.
@@ -288,7 +288,7 @@ https://www.kaggle.com/ranjeetjain3/seaborn-tips-data set
 - [9] scikit-learn: Machine Learning in Python
 https://scikit-learn.org/stable/index.html
 
-- [10] StatsModels: Statistics in Python
+- [10] statsmodels: Statistics in Python
 https://www.statsmodels.org/stable/index.html
 
 - [11] scipy.stats : Statistics with SciPy
